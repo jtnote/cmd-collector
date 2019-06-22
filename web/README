@@ -1,0 +1,5 @@
+npm i webpack webpack-cli -D
+npm i webpack-dev-server -D
+npm i html-webpack-plugin html-loader -D
+npm i @babel/core babel-loader @babel/preset-env @babel/preset-react -D
+npm i react react-dom

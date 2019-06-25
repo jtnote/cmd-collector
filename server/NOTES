@@ -1,0 +1,15 @@
+==flask==
+--general--
+http://flask.pocoo.org/docs/1.0/tutorial/factory/
+
+--db--
+https://www.codementor.io/adityamalviya/python-flask-mysql-connection-rxblpje73
+
+--static files--
+https://stackoverflow.com/a/42791810/816109
+https://stackabuse.com/serving-static-files-with-flask/
+
+==run==
+set FLASK_APP=cmd_notes
+set FLASK_ENV=development
+flask run

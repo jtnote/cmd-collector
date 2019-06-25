@@ -12,9 +12,9 @@ module.exports = {
           loader: 'babel-loader'
        }]
    },
-   plugins:[
-       new HWP(
-          {template: path.join(__dirname,'/index.html')}
-       )
-   ]
+//    plugins:[
+//        new HWP(
+//           {template: path.join(__dirname,'/index.html')}
+//        )
+//    ]
 }

@@ -4,3 +4,6 @@ venv
 .cache
 .vscode
 package-lock.json
+*.pyc
+*.cmd
+tut

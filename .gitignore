@@ -1,5 +1,6 @@
 /web/dist
 node_modules/
+venv
 .cache
 .vscode
 package-lock.json

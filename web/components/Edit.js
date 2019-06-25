@@ -8,7 +8,7 @@ class Edit extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="note-edit">
                 <div className="field">
                     <label className="label">Title</label>
                     <div className="control">
@@ -23,10 +23,10 @@ class Edit extends React.Component {
                     </div>
                 </div>
 
-                <div class="field">
-                    <label class="label">Command</label>
-                    <div class="control">
-                        <textarea class="textarea" placeholder="e.g. python get-pip.py #https://bootstrap.pypa.io/get-pip.py"></textarea>
+                <div className="field">
+                    <label className="label">Command</label>
+                    <div className="control">
+                        <textarea className="textarea" placeholder="e.g. python get-pip.py #https://bootstrap.pypa.io/get-pip.py"></textarea>
                     </div>
                 </div>
             </div>

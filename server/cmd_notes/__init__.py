@@ -5,6 +5,7 @@ from flask import Flask, render_template
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True, static_url_path='',  static_folder = '../../web', template_folder="./templates")
+    # app.debug = False
 
     # app.config.from_mapping(
     #     SECRET_KEY='dev',
@@ -37,9 +38,9 @@ def create_app(test_config=None):
     def hello():
         return 'Hello, World!'
 
-    @app.route('/api/list')
-    def api_list():
-        return 'list api'
+    # @app.route('/api/list')
+    # def api_list():
+    #     return 'list api'
 
     # @app.route('/')
     # def index():
@@ -49,5 +50,11 @@ def create_app(test_config=None):
     # init db
     from . import db
     db.init_app(app)
+
+    # add note bp
+    from . import note
+    app.register_blueprint(note.bp)
+    app.add_url_rule('/cmdnotes/api/notes', 'notes', note.get_notes)
+    # app.add_url_rule('/cmdnotes/api/notes', endpoint='get_notes')
 
     return app

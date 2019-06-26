@@ -1,5 +1,5 @@
-# import sqlite3
-from flask_mysqldb import MySQL
+# from flask_mysqldb import MySQL
+import mysql.connector
 
 import click
 from flask import current_app, g
@@ -15,7 +15,12 @@ def get_db():
         # g.db.row_factory = sqlite3.Row
         # print('current_app')
         # print(current_app.config)
-        g.db = MySQL(current_app)
+        
+        # using flask_mysqldb
+        # g.db = MySQL(current_app)
+        cnx = mysql.connector.connect(user=current_app.config['MYSQL_USER'], password=current_app.config['MYSQL_PASSWORD'],
+                              host=current_app.config['MYSQL_HOST'], database=current_app.config['MYSQL_DB'])
+        g.db = cnx
 
     return g.db
 
@@ -46,11 +51,12 @@ def init_db_command():
 
 
 def close_db(e=None):
-    db = g.pop('db', None)
+    # db = g.pop('db', None)
     
     # TODO: error if close is performed(maybe the CRUD statement is executed asynchronously)
     # if db is not None:
     #   db.connection.close()
+    pass
 
 def init_app(app):
     app.teardown_appcontext(close_db)

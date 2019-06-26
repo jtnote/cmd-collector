@@ -20,9 +20,17 @@ bp = Blueprint('note', __name__)
 # TODO: methods option available?
 def get_notes():
     db = get_db()
-    cur = db.connection.cursor()
+    cur = db.cursor()
     cur.execute(
         'SELECT n.id, title, url, cmd, created FROM note n ORDER BY created DESC'
     )
-    notes = cur.fetchall()
+    notes_res = cur.fetchall()
+    notes = []
+    for note in notes_res:
+        notes.append({
+            "id": note[0],
+            "title": note[1],
+            "url": note[2],
+            "cmd": note[3]
+        })
     return jsonify({'notes': notes})

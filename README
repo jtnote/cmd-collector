@@ -1,0 +1,14 @@
+== backend: server start==
+cd server
+set FLASK_APP=cmd_notes
+set FLASK_ENV=production
+flask run
+
+cd server
+set FLASK_APP=cmd_notes
+set FLASK_ENV=development
+flask run
+
+== frontend: build ==
+cd web
+npm run build

@@ -34,3 +34,16 @@ def get_notes():
             "cmd": note[3]
         })
     return jsonify({'notes': notes})
+
+def create_note():
+    data =request.json
+    print(data)
+
+    db = get_db()
+    cur = db.cursor()
+    sql = "INSERT INTO note (title, url, cmd) VALUES (%s, %s, %s)"
+    val = (data['title'], data['url'], data['cmd'])
+    cur.execute(sql, val)
+    db.commit()
+
+    return jsonify({'result': 'ok'})

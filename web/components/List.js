@@ -31,7 +31,9 @@ class List extends React.Component {
     }
 
     handleEdit(id) {
-        console.log('id=' + id);
+        console.log('id=' + id +", updateComplete=");
+        console.log(this.props.updateComplete);
+        var me = this;
         axios.get('/cmdnotes/api/note', {
             params: {
                 id: id
@@ -39,7 +41,7 @@ class List extends React.Component {
         }).then(function (response) {
             // console.log(response);
             var note = response.data.note;
-            ReactDOM.render(<Edit action="update" note={note}/>, document.getElementById('root'));
+            ReactDOM.render(<Edit action="update" note={note} updateComplete={me.props.updateComplete} cancelComplete={me.props.cancelComplete}/>, document.getElementById('root'));
         }).catch(function (error) {
             console.log(error);
         }).then(function () {

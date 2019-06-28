@@ -2,20 +2,13 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for, jsonify
 )
 from werkzeug.exceptions import abort
+import mysql.connector
+from mysql.connector import Error
+from mysql.connector import errorcode
 
-# from cmd_notes.auth import login_required
 from cmd_notes.db import get_db
 
 bp = Blueprint('note', __name__)
-
-# @bp.route('/')
-# def index():
-#     db = get_db()
-#     notes = db.execute(
-#         'SELECT n.id, title, url, cmd, created'
-#         ' FROM note n'
-#         ' ORDER BY created DESC'
-#     ).fetchall()
 
 # TODO: methods option available?
 def get_notes():
@@ -52,7 +45,7 @@ def get_note():
     }})
 
 def create_note():
-    data =request.json
+    data = request.json
     print(data)
 
     db = get_db()
@@ -64,16 +57,29 @@ def create_note():
 
     return jsonify({'result': 'ok'})
 
-def edit_note():
-    id = request.args.get('id')
+def update_note():
+    note = request.json
 
-    print(id)
+    print(note)
 
-    # db = get_db()
-    # cur = db.cursor()
-    # sql = "INSERT INTO note (title, url, cmd) VALUES (%s, %s, %s)"
-    # val = (data['title'], data['url'], data['cmd'])
-    # cur.execute(sql, val)
-    # db.commit()
+    try:
+        db = get_db()
+        cur = db.cursor()
+        sql = "UPDATE note SET title=%s,url=%s,cmd=%s where id=%s"
+        val = (note['title'], note['url'], note['cmd'], note['id'])
+        cur.execute(sql, val)
+        db.commit()
+
+        return jsonify({'result': 'ok'})
+    except mysql.connector.Error as error :
+        print("Failed to update record to database: {}".format(error))
+        return jsonify({'result': 'error'})
+    finally:
+        # TODO: no error in other places if conn is closed here?
+        #closing database connection.
+        # if(db.is_connected()):
+        #     db.close()
+        #     print("connection is closed")
+        pass
 
     return jsonify({'result': 'ok'})

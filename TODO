@@ -3,3 +3,10 @@ bitbucket repo create tool(desktop) //web ver too?
 onUpdateComplete
 
 change indent size in VS code corresponding to Index.js
+
+different title of edit and add
+
+==latency==
+after user click "edit"
+after user click "cancel" in edit page
+after user click "cancel" in add page

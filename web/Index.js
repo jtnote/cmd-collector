@@ -17,17 +17,17 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.createNote = this.createNote.bind(this);
+    this.addNote = this.addNote.bind(this);
   }
 
-  createNote() {
-    ReactDOM.render(<Edit />, document.getElementById('root'));
+  addNote() {
+    ReactDOM.render(<Edit action="add"/>, document.getElementById('root'));
   }
 
   render() {
     return (
       <div>
-        <a className="button is-primary" onClick={this.createNote}>New</a>
+        <a className="button is-primary" onClick={this.addNote}>New</a>
         <List notes={this.props.notes} />
       </div>
     )

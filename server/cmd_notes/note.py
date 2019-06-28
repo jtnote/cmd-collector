@@ -35,6 +35,22 @@ def get_notes():
         })
     return jsonify({'notes': notes})
 
+def get_note():
+    id = request.args.get('id')
+
+    db = get_db()
+    cur = db.cursor()
+    sql = "SELECT n.id, title, url, cmd, created FROM note n where n.id=%s"
+    val = (id,)
+    cur.execute(sql, val)
+    note = cur.fetchone()
+    return jsonify({'note': {
+        "id": note[0],
+        "title": note[1],
+        "url": note[2],
+        "cmd": note[3]
+    }})
+
 def create_note():
     data =request.json
     print(data)
@@ -45,5 +61,19 @@ def create_note():
     val = (data['title'], data['url'], data['cmd'])
     cur.execute(sql, val)
     db.commit()
+
+    return jsonify({'result': 'ok'})
+
+def edit_note():
+    id = request.args.get('id')
+
+    print(id)
+
+    # db = get_db()
+    # cur = db.cursor()
+    # sql = "INSERT INTO note (title, url, cmd) VALUES (%s, %s, %s)"
+    # val = (data['title'], data['url'], data['cmd'])
+    # cur.execute(sql, val)
+    # db.commit()
 
     return jsonify({'result': 'ok'})

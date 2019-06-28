@@ -83,3 +83,16 @@ def update_note():
         pass
 
     return jsonify({'result': 'ok'})
+
+def delete_note():
+    data = request.json
+    print(data)
+
+    db = get_db()
+    cur = db.cursor()
+    sql = "DELETE FROM note where id=%s"
+    val = (data['id'],)
+    cur.execute(sql, val)
+    db.commit()
+
+    return jsonify({'result': 'ok'})

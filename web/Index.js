@@ -19,9 +19,9 @@ class Index extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <a className="button is-primary" onClick={this.addNote}>New</a>
-        <List notes={this.props.notes} updateComplete={this.props.updateComplete} cancelComplete={this.props.cancelComplete}/>
+        <List notes={this.props.notes} updateComplete={this.props.updateComplete} cancelComplete={this.props.cancelComplete} deleteComplete={this.props.deleteComplete}/>
       </div>
     )
   }
@@ -33,6 +33,7 @@ class App extends React.Component {
 
     this.updateComplete = this.updateComplete.bind(this);
     this.cancelComplete = this.cancelComplete.bind(this);
+    this.deleteComplete = this.deleteComplete.bind(this);
   }
 
   updateComplete() {
@@ -45,9 +46,14 @@ class App extends React.Component {
     initIndex();
   }
 
+  deleteComplete(){
+    console.log('in deleteComplete');
+    initIndex();
+  }
+
   render() {
     return (
-      <Index notes={this.props.notes} updateComplete={this.updateComplete} cancelComplete={this.cancelComplete}/>
+      <Index notes={this.props.notes} updateComplete={this.updateComplete} cancelComplete={this.cancelComplete} deleteComplete={this.deleteComplete}/>
     );
   }
 }

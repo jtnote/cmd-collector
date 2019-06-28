@@ -23,15 +23,35 @@ class ListItemEdit extends React.Component {
     }
 }
 
+class ListItemDelete extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+        this.props.onDeleteClick(this.props.idDelete);
+    }
+
+    render() {
+        var text;
+        return (
+            <button className="button is-danger" onClick={this.handleClick}>Delete</button>
+        )
+    }
+}
+
 class List extends React.Component {
     constructor(props) {
         super(props);
 
         this.handleEdit = this.handleEdit.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     handleEdit(id) {
-        console.log('id=' + id +", updateComplete=");
+        console.log('id=' + id + ", updateComplete=");
         console.log(this.props.updateComplete);
         var me = this;
         axios.get('/cmdnotes/api/note', {
@@ -41,7 +61,7 @@ class List extends React.Component {
         }).then(function (response) {
             // console.log(response);
             var note = response.data.note;
-            ReactDOM.render(<Edit action="update" note={note} updateComplete={me.props.updateComplete} cancelComplete={me.props.cancelComplete}/>, document.getElementById('root'));
+            ReactDOM.render(<Edit action="update" note={note} updateComplete={me.props.updateComplete} cancelComplete={me.props.cancelComplete} />, document.getElementById('root'));
         }).catch(function (error) {
             console.log(error);
         }).then(function () {
@@ -49,34 +69,56 @@ class List extends React.Component {
         });
     }
 
+    handleDelete(id) {
+        console.log('handleDelete id=' + id);
+        var me = this;
+        axios.post('/cmdnotes/api/delete_note', {
+            id: id
+        }).then(function (response) {
+            // console.log(response);
+            var result = response.data.result;
+            if (result == 'ok') {
+                console.log('in handleDelete');
+                me.props.deleteComplete();
+            }
+        }).catch(function (error) {
+            console.log(error);
+        }).then(function () {
+            // always executed
+        });
+    }
+
+
+
     render() {
         return (
-            <div className="note-list">
-                <table className="table">
-                    <thead>
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th><abbr title="id">#</abbr></th>
+                        <th>title</th>
+                        <th><abbr title="cmd">cmd</abbr></th>
+                        <th><abbr title="url">url</abbr></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                {
+                    this.props.notes.map((note, i) => (
                         <tr>
-                            <th><abbr title="id">#</abbr></th>
-                            <th>title</th>
-                            <th><abbr title="cmd">cmd</abbr></th>
-                            <th><abbr title="url">url</abbr></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    {
-                        this.props.notes.map((note, i) => (
-                            <tr>
-                                <td>{note.id}</td>
-                                <td>{note.title}</td>
-                                <td>{note.cmd}</td>
-                                <td>{note.url}</td>
-                                <td>
+                            <td>{note.id}</td>
+                            <td>{note.title}</td>
+                            <td>{note.cmd}</td>
+                            <td>{note.url}</td>
+                            <td>
+                                <div class="buttons">
                                     <ListItemEdit onEditClick={this.handleEdit} idEdit={note.id} />
-                                </td>
-                            </tr>
-                        ))
-                    }
-                </table>
-            </div>
+                                    <ListItemDelete onDeleteClick={this.handleDelete} idDelete={note.id} />
+                                </div>
+                            </td>
+                        </tr>
+                    ))
+                }
+            </table>
         )
     }
 }

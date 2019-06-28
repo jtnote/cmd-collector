@@ -83,7 +83,7 @@ class Edit extends React.Component {
         }
 
         return (
-            <div className="note-edit">
+            <div className="container">
                 <div className="field">
                     <label className="label">Title</label>
                     <div className="control">

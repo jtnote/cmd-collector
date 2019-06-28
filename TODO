@@ -6,6 +6,9 @@ change indent size in VS code corresponding to Index.js
 
 different title of edit and add
 
+list page button using font awesome:
+https://versions.bulma.io/0.7.1/documentation/elements/button/
+
 ==latency==
 after user click "edit"
 after user click "cancel" in edit page

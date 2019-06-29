@@ -6,4 +6,5 @@ venv
 package-lock.json
 *.pyc
 *.cmd
+*.ps1
 tut

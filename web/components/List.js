@@ -91,6 +91,10 @@ class List extends React.Component {
 
 
     render() {
+        const lStyle = {
+            textDecoration: 'underline'
+        };
+
         return (
             <table className="table">
                 <thead>
@@ -108,7 +112,7 @@ class List extends React.Component {
                             <td>{note.id}</td>
                             <td>{note.title}</td>
                             <td>{note.cmd}</td>
-                            <td>{note.url}</td>
+                            <td><a href={note.url} style={lStyle} target="_blank">Link</a></td>
                             <td>
                                 <div class="buttons">
                                     <ListItemEdit onEditClick={this.handleEdit} idEdit={note.id} />

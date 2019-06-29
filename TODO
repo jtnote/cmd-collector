@@ -9,6 +9,9 @@ different title of edit and add
 list page button using font awesome:
 https://versions.bulma.io/0.7.1/documentation/elements/button/
 
+
+bug: if url="www.pip.com", then link will be "localhost:5000/www.pip.com"
+
 ==latency==
 after user click "edit"
 after user click "cancel" in edit page

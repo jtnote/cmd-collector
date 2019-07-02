@@ -101,8 +101,8 @@ class List extends React.Component {
                     <tr>
                         <th><abbr title="id">#</abbr></th>
                         <th>title</th>
-                        <th><abbr title="cmd">cmd</abbr></th>
                         <th><abbr title="url">url</abbr></th>
+                        <th><abbr title="cmd">cmd</abbr></th>
                         <th></th>
                     </tr>
                 </thead>
@@ -111,8 +111,8 @@ class List extends React.Component {
                         <tr>
                             <td>{note.id}</td>
                             <td>{note.title}</td>
-                            <td>{note.cmd}</td>
                             <td><a href={note.url} style={lStyle} target="_blank">Link</a></td>
+                            <td>{note.cmd}</td>
                             <td>
                                 <div class="buttons">
                                     <ListItemEdit onEditClick={this.handleEdit} idEdit={note.id} />

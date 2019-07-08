@@ -100,9 +100,9 @@ class List extends React.Component {
                 <thead>
                     <tr>
                         <th><abbr title="id">#</abbr></th>
-                        <th>title</th>
-                        <th><abbr title="url">url</abbr></th>
-                        <th><abbr title="cmd">cmd</abbr></th>
+                        <th>Title</th>
+                        <th><abbr title="url">Url</abbr></th>
+                        <th><abbr title="cmd">Command</abbr></th>
                         <th></th>
                     </tr>
                 </thead>

@@ -1,14 +1,13 @@
 == backend: server start==
+# make sure using powershell (test in 2.0 only)
+# install python 3.7 above
 cd server
-set FLASK_APP=cmd_notes
-set FLASK_ENV=production
-flask run
-
-cd server
-set FLASK_APP=cmd_notes
-set FLASK_ENV=development
-flask run
+python -m venv venv
+pip install -r requirements.txt
+.\startprod.ps1
 
 == frontend: build ==
 cd web
+npm i
 npm run build
+# then open browser

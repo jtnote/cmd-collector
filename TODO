@@ -14,9 +14,13 @@ bug: if url="www.pip.com", then link will be "localhost:5000/www.pip.com"
 
 auto complete (e.g. keyword --- powershell)
 
-quick copy of command in list
+* quick copy of command in list
 
 comments?
+
+pagination
+
+line break saved in db? should be saved in db as linebreak?
 
 ==latency==
 after user click "edit"

@@ -1,20 +1,37 @@
 /* ============ list ========================= */
-.viewport {
+
+.cc-viewport {
     padding-top: 10px;
     /* width: 50%; */
     /* margin: 0 auto; */
 }
 
 /* ============ list ========================= */
-.note-list {
+
+/* .note-list {
     padding-top: 10px;
     width: 50%;
     margin: 0 auto;
+} */
+
+.cc-mainlist-table td div.cc-mainlist-table-title {
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cc-mainlist-table td div.cc-mainlist-table-cmd {
+    width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* ============ edit ========================= */
-.note-edit {
+
+/* .note-edit {
     padding-top: 10px;
     width: 50%;
     margin: 0 auto;
-}
+} */

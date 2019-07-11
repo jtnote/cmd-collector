@@ -96,7 +96,7 @@ class List extends React.Component {
         };
 
         return (
-            <table className="table">
+            <table className="table cc-mainlist-table">
                 <thead>
                     <tr>
                         <th><abbr title="id">#</abbr></th>
@@ -110,9 +110,9 @@ class List extends React.Component {
                     this.props.notes.map((note, i) => (
                         <tr>
                             <td>{note.id}</td>
-                            <td>{note.title}</td>
+                            <td><div className="cc-mainlist-table-title">{note.title}</div></td>
                             <td><a href={note.url} style={lStyle} target="_blank">Link</a></td>
-                            <td>{note.cmd}</td>
+                            <td><div className="cc-mainlist-table-cmd">{note.cmd}</div></td>
                             <td>
                                 <div class="buttons">
                                     <ListItemEdit onEditClick={this.handleEdit} idEdit={note.id} />

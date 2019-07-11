@@ -96,7 +96,7 @@ class List extends React.Component {
         };
 
         return (
-            <table className="table is-fullwidth cc-mainlist-table">
+            <table className="table cc-mainlist-table">
                 <thead>
                     <tr>
                         <th><abbr title="id">#</abbr></th>

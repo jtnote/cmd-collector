@@ -47,18 +47,44 @@ class ListPagingBar extends React.Component {
     constructor(props) {
         super(props);
 
+        console.log('ListPagingBar: currentPage='+props.currentPage);
+
         //type conversion
         var total = Number(this.props.total);
-        var current = Number(this.props.current);
+        var current = Number(this.props.currentPage);
 
         this.state = {
             total: total,
             current: current,
             affix: 3 //TODO: constant
         }
+
+        this.changePage = this.changePage.bind(this);
+    }
+
+    changePage(e) {
+        // e.preventDefault();
+        // e.persist();
+
+        var page = e.target.getAttribute('page');
+        this.props.changePage(Number(page));
+
+
+        // axios.get('/cmdnotes/api/notes_paging', {
+        //     params: {
+        //         page: page
+        //     }
+        // }).then(function (response) {
+        //     alert('paging return');
+        // }).catch(function (error) {
+        //     console.log(error);
+        // }).then(function () {
+        // });
     }
 
     render() {
+        console.log('in ListPagingBar');
+        console.log(this.state);
         //TODO: if total<=3
         var total = this.state.total;
         var current = this.state.current;
@@ -75,7 +101,7 @@ class ListPagingBar extends React.Component {
                     if (i + 1 == current) {
                         elAffixItem = (<li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">{i + 1}</a></li>);
                     } else {
-                        elAffixItem = (<li><a class="pagination-link" aria-label="Goto page 1">{i + 1}</a></li>);
+                        elAffixItem = (<li><a class="pagination-link" aria-label="Goto page 1" page={i + 1} onClick={this.changePage}>{i + 1}</a></li>);
                     }
                     elAffix.push(elAffixItem);
                 }
@@ -87,7 +113,7 @@ class ListPagingBar extends React.Component {
                 for (var i = total - affix; i < total; i++) {
                     var elAffixItem;
                     if (i + 1 == current) {
-                        elAffixItem = (<li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">{i + 1}</a></li>);
+                        elAffixItem = (<li><a class="pagination-link is-current" aria-label="Page 22" aria-current="page">{i + 1}</a></li>);
                     } else {
                         elAffixItem = (<li><a class="pagination-link" aria-label="Goto page 1">{i + 1}</a></li>);
                     }
@@ -192,6 +218,8 @@ class List extends React.Component {
             textDecoration: 'underline'
         };
 
+        var timestamp = new Date().getTime();
+
         return (
             <div>
                 <table className="table cc-mainlist-table">
@@ -221,7 +249,7 @@ class List extends React.Component {
                         ))
                     }
                 </table>
-                <ListPagingBar total="10" current="6" />
+                <ListPagingBar total="10" key={"ListPagingBar"+timestamp} currentPage={this.props.currentPage} changePage={this.props.changePage}/>
             </div>
         )
     }

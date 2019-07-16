@@ -11,6 +11,8 @@ from cmd_notes.db import get_db
 bp = Blueprint('note', __name__)
 
 # TODO: methods option available?
+
+
 def get_notes():
     db = get_db()
     cur = db.cursor()
@@ -26,7 +28,8 @@ def get_notes():
             "url": note[2],
             "cmd": note[3]
         })
-    return jsonify({'notes': notes})
+    return jsonify({'notes': notes, 'currentPage': 1})
+
 
 def get_notes_paging():
     page = request.args.get('page')
@@ -45,7 +48,8 @@ def get_notes_paging():
             "url": note[2],
             "cmd": note[3]
         })
-    return jsonify({'notes': notes})
+    return jsonify({'notes': notes, 'currentPage': page})
+
 
 def get_note():
     id = request.args.get('id')
@@ -63,6 +67,7 @@ def get_note():
         "cmd": note[3]
     }})
 
+
 def create_note():
     data = request.json
     print(data)
@@ -75,6 +80,7 @@ def create_note():
     db.commit()
 
     return jsonify({'result': 'ok'})
+
 
 def update_note():
     note = request.json
@@ -90,18 +96,19 @@ def update_note():
         db.commit()
 
         return jsonify({'result': 'ok'})
-    except mysql.connector.Error as error :
+    except mysql.connector.Error as error:
         print("Failed to update record to database: {}".format(error))
         return jsonify({'result': 'error'})
     finally:
         # TODO: no error in other places if conn is closed here?
-        #closing database connection.
+        # closing database connection.
         # if(db.is_connected()):
         #     db.close()
         #     print("connection is closed")
         pass
 
     return jsonify({'result': 'ok'})
+
 
 def delete_note():
     data = request.json

@@ -28,6 +28,25 @@ def get_notes():
         })
     return jsonify({'notes': notes})
 
+def get_notes_paging():
+    page = request.args.get('page')
+
+    db = get_db()
+    cur = db.cursor()
+    cur.execute(
+        'SELECT n.id, title, url, cmd, created FROM note n ORDER BY created DESC'
+    )
+    notes_res = cur.fetchall()
+    notes = []
+    for note in notes_res:
+        notes.append({
+            "id": note[0],
+            "title": note[1],
+            "url": note[2],
+            "cmd": note[3]
+        })
+    return jsonify({'notes': notes})
+
 def get_note():
     id = request.args.get('id')
 

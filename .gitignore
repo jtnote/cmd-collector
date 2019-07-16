@@ -5,6 +5,7 @@ venv
 .vscode
 package-lock.json
 *.pyc
+/server/test
 # *.cmd
 # *.ps1
 tut

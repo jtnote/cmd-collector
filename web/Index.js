@@ -19,25 +19,31 @@ class App extends React.Component {
     this.changePage = this.changePage.bind(this);
   }
 
+  //----------------- event listeners ------------------------------------------------------
+  // after "New" is clicked
   toAddNote(){
     ReactDOM.render(<Edit action="add" updateComplete={this.updateComplete} cancelComplete={this.cancelComplete} />, document.getElementById('root'));
   }
 
+  // after updating a note in "Edit" dialog
   updateComplete() {
     console.log('in updateComplete');
     initIndex();
   }
 
+  // after cancel in "New" dialog
   cancelComplete() {
     console.log('in cancelComplete');
     initIndex();
   }
 
+  // after deleting a note in list page
   deleteComplete() {
     console.log('in deleteComplete');
     initIndex();
   }
 
+  //----------------- other ------------------------------------------------------
   changePage(p) {
     // alert('in App changepage:'+p);
     axios.get('/cmdnotes/api/notes_paging', {

@@ -27,4 +27,4 @@ list button height too big?
 ==latency==
 after user click "edit"
 after user click "cancel" in edit page
-after user click "cancel" in add page
+after user click "cancel" in add page //reload is not necessary?

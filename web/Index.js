@@ -6,36 +6,21 @@ import List from './components/List'
 
 import axios from 'axios'
 
-class Index extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.addNote = this.addNote.bind(this);
-  }
-
-  addNote() {
-    ReactDOM.render(<Edit action="add" updateComplete={this.props.updateComplete} cancelComplete={this.props.cancelComplete} />, document.getElementById('root'));
-  }
-
-  render() {
-    return (
-      <div className="container">
-        <a className="button is-primary" onClick={this.addNote}>New</a>
-        <List notes={this.props.notes} currentPage={this.props.currentPage} updateComplete={this.props.updateComplete} cancelComplete={this.props.cancelComplete} deleteComplete={this.props.deleteComplete} changePage={this.props.changePage}/>
-      </div>
-    )
-  }
-}
-
 class App extends React.Component {
   constructor(props) {
     super(props);
+
+    this.toAddNote = this.toAddNote.bind(this);
 
     this.updateComplete = this.updateComplete.bind(this);
     this.cancelComplete = this.cancelComplete.bind(this);
     this.deleteComplete = this.deleteComplete.bind(this);
 
     this.changePage = this.changePage.bind(this);
+  }
+
+  toAddNote(){
+    ReactDOM.render(<Edit action="add" updateComplete={this.updateComplete} cancelComplete={this.cancelComplete} />, document.getElementById('root'));
   }
 
   updateComplete() {
@@ -73,7 +58,10 @@ class App extends React.Component {
 
   render() {
     return (
-      <Index notes={this.props.notes} currentPage={this.props.currentPage} updateComplete={this.updateComplete} cancelComplete={this.cancelComplete} deleteComplete={this.deleteComplete} changePage={this.changePage}/>
+      <div className="container">
+        <a className="button is-primary" onClick={this.toAddNote}>New</a>
+        <List notes={this.props.notes} currentPage={this.props.currentPage} updateComplete={this.updateComplete} cancelComplete={this.cancelComplete} deleteComplete={this.deleteComplete} changePage={this.changePage}/>
+      </div>
     );
   }
 }

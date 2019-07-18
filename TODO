@@ -18,11 +18,14 @@ auto complete (e.g. keyword --- powershell)
 
 comments?
 
-pagination
+[.] pagination
 
 line break saved in db? should be saved in db as linebreak?
 
 list button height too big?
+
+web: if page<=3
+web: if final result not full page, then paging bar position changes
 
 ==latency==
 after user click "edit"

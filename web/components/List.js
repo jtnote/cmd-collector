@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import axios from 'axios'
 import Edit from './Edit'
+import Constants from '../Constants';
 
 class ListItemEdit extends React.Component {
     constructor(props) {
@@ -67,6 +68,7 @@ class ListPagingBar extends React.Component {
 
     // after clicking button of page x
     //(size, current)?
+    // call top parent
     reloadByPgButton(e) {
         // e.preventDefault();
         // e.persist();
@@ -89,8 +91,9 @@ class ListPagingBar extends React.Component {
     }
 
     //called by parent
-    changePage(p) {
+    changePage(total, p) {
         this.setState({
+            total: total,
             current: p
         });
     }
@@ -188,7 +191,9 @@ class List extends React.Component {
 
         this.state = {
             //do not affect paging bar directly
-            currentPage: this.props.currentPage
+            currentPage: this.props.currentPage,
+            totalPages: this.props.totalPages,
+            notes: this.props.notes
         }
 
         this.pagingBar = React.createRef();
@@ -233,13 +238,17 @@ class List extends React.Component {
     }
 
     //called by parent
-    changePage(p) {
-        console.log('in List: changepage');
+    //actually doing reloading
+    changePage(p, totalPages, notes) {
+        // console.log('in List: changepage, total='+totalPages);
+        //placed before rendering of list content?
+        this.pagingBar.current.changePage(totalPages, p);
+
         this.setState({
-            currentPage: p
+            currentPage: p,
+            notes: notes
         });
 
-        this.pagingBar.current.changePage(p);
     }
 
     render() {
@@ -262,7 +271,7 @@ class List extends React.Component {
                         </tr>
                     </thead>
                     {
-                        this.props.notes.map((note, i) => (
+                        this.state.notes.map((note, i) => (
                             <tr>
                                 <td>{note.id}</td>
                                 <td><div className="cc-mainlist-table-title">{note.title}</div></td>
@@ -278,7 +287,7 @@ class List extends React.Component {
                         ))
                     }
                 </table>
-                <ListPagingBar ref={this.pagingBar} total="10" currentPage={this.state.currentPage} reloadPage={this.props.reloadPage} />
+                <ListPagingBar ref={this.pagingBar} total={this.state.totalPages} currentPage={this.state.currentPage} reloadPage={this.props.reloadPage} />
             </div>
         )
     }

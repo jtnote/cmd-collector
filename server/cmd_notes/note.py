@@ -7,6 +7,7 @@ from mysql.connector import Error
 from mysql.connector import errorcode
 
 from cmd_notes.db import get_db
+from . import constants
 
 bp = Blueprint('note', __name__)
 
@@ -28,17 +29,26 @@ def get_notes():
             "url": note[2],
             "cmd": note[3]
         })
-    return jsonify({'notes': notes, 'currentPage': 1})
+
+    sql = 'SELECT COUNT(*) FROM note'
+    cur.execute(sql)
+    total = cur.fetchone()[0]
+
+    return jsonify({'notes': notes, 'total': total, 'currentPage': 1})
 
 
 def get_notes_paging():
-    page = request.args.get('page')
+    page = int(request.args.get('page'))
+    page_size = int(request.args.get('pageSize') or constants.PAGE_SIZE)
+
+    print(page_size)
 
     db = get_db()
     cur = db.cursor()
-    cur.execute(
-        'SELECT n.id, title, url, cmd, created FROM note n ORDER BY created DESC'
-    )
+
+    sql = 'SELECT n.id, title, url, cmd, created FROM note n ORDER BY created DESC LIMIT %s,%s'
+    val = (page_size*(page-1), page_size)
+    cur.execute(sql, val)
     notes_res = cur.fetchall()
     notes = []
     for note in notes_res:
@@ -48,7 +58,13 @@ def get_notes_paging():
             "url": note[2],
             "cmd": note[3]
         })
-    return jsonify({'notes': notes, 'currentPage': page})
+
+    sql = 'SELECT COUNT(*) FROM note'
+    cur.execute(sql)
+    total = cur.fetchone()[0]
+
+    # TODO: should return current page?
+    return jsonify({'notes': notes, 'total': total, 'currentPage': page})
 
 
 def get_note():

@@ -5,6 +5,7 @@ import Edit from './components/Edit'
 import List from './components/List'
 
 import axios from 'axios'
+import Constants from './Constants'
 
 class App extends React.Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class App extends React.Component {
 
   //----------------- event listeners ------------------------------------------------------
   // after "New" is clicked
-  toAddNote(){
+  toAddNote() {
     ReactDOM.render(<Edit action="add" updateComplete={this.updateComplete} cancelComplete={this.cancelComplete} />, document.getElementById('root'));
   }
 
@@ -58,8 +59,9 @@ class App extends React.Component {
       console.log(resp);
 
       var page = Number(resp.data.currentPage);
+      var total = Math.ceil(Number(resp.data.total) / Constants.PAGE_SIZE);
 
-      me.noteList.current.changePage(page);
+      me.noteList.current.changePage(page, total, resp.data.notes);
 
       // ReactDOM.render(<App notes={resp.data.notes} currentPage={resp.data.currentPage}/>, document.getElementById('root'));
 
@@ -70,23 +72,28 @@ class App extends React.Component {
   }
 
   render() {
+    // alert('render' + Constants.PAGE_SIZE);
     return (
       <div className="container">
         <a className="button is-primary" onClick={this.toAddNote}>New</a>
-        <List ref={this.noteList} notes={this.props.notes} currentPage={this.props.currentPage} updateComplete={this.updateComplete} cancelComplete={this.cancelComplete} deleteComplete={this.deleteComplete} reloadPage={this.reloadPage}/>
+        <List ref={this.noteList} notes={this.props.notes} totalPages={this.props.totalPages} currentPage={this.props.currentPage} updateComplete={this.updateComplete} cancelComplete={this.cancelComplete} deleteComplete={this.deleteComplete} reloadPage={this.reloadPage} />
       </div>
     );
   }
 }
 
 function initIndex() {
-  axios.get('/cmdnotes/api/notes', {
+  axios.get('/cmdnotes/api/notes_paging', {
     params: {
-      xx: 'xxx'
+      page: 1
     }
-  }).then(function (response) {
+  }).then(function (resp) {
+    console.log(resp);
+    var page = Number(resp.data.currentPage);
+    var total = Math.ceil(Number(resp.data.total) / Constants.PAGE_SIZE);
+
     // console.log(response);
-    ReactDOM.render(<App notes={response.data.notes} currentPage={response.data.currentPage}/>, document.getElementById('root'));
+    ReactDOM.render(<App notes={resp.data.notes} totalPages={total} currentPage={page} />, document.getElementById('root'));
   }).catch(function (error) {
     console.log(error);
   }).then(function () {

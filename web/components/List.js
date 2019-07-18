@@ -47,7 +47,7 @@ class ListPagingBar extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log('ListPagingBar: currentPage='+props.currentPage);
+        console.log('ListPagingBar: currentPage=' + props.currentPage);
 
         //type conversion
         var total = Number(this.props.total);
@@ -59,16 +59,22 @@ class ListPagingBar extends React.Component {
             affix: 3 //TODO: constant
         }
 
+        this.reloadByPgButton = this.reloadByPgButton.bind(this);
+
         this.changePage = this.changePage.bind(this);
     }
 
-    changePage(e) {
+
+    // after clicking button of page x
+    //(size, current)?
+    reloadByPgButton(e) {
         // e.preventDefault();
         // e.persist();
 
         var page = e.target.getAttribute('page');
-        this.props.changePage(Number(page));
+        // this.props.changePage(Number(page));
 
+        this.props.reloadPage(Number(page));
 
         // axios.get('/cmdnotes/api/notes_paging', {
         //     params: {
@@ -80,6 +86,13 @@ class ListPagingBar extends React.Component {
         //     console.log(error);
         // }).then(function () {
         // });
+    }
+
+    //called by parent
+    changePage(p) {
+        this.setState({
+            current: p
+        });
     }
 
     render() {
@@ -101,42 +114,42 @@ class ListPagingBar extends React.Component {
                     if (i + 1 == current) {
                         elAffixItem = (<li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">{i + 1}</a></li>);
                     } else {
-                        elAffixItem = (<li><a class="pagination-link" aria-label="Goto page 1" page={i + 1} onClick={this.changePage}>{i + 1}</a></li>);
+                        elAffixItem = (<li><a class="pagination-link" aria-label="Goto page 1" page={i + 1} onClick={this.reloadByPgButton}>{i + 1}</a></li>);
                     }
                     elAffix.push(elAffixItem);
                 }
 
                 elOuter.push(elAffix);
                 elOuter.push(elEllipsis);
-                elOuter.push((<li><a class="pagination-link" aria-label="Goto page 1">{total}</a></li>));
+                elOuter.push((<li><a class="pagination-link" aria-label="Goto page 1" page={total} onClick={this.reloadByPgButton}>{total}</a></li>));
             } else if (current > total - 2) {
                 for (var i = total - affix; i < total; i++) {
                     var elAffixItem;
                     if (i + 1 == current) {
                         elAffixItem = (<li><a class="pagination-link is-current" aria-label="Page 22" aria-current="page">{i + 1}</a></li>);
                     } else {
-                        elAffixItem = (<li><a class="pagination-link" aria-label="Goto page 1">{i + 1}</a></li>);
+                        elAffixItem = (<li><a class="pagination-link" aria-label="Goto page 1" page={i + 1} onClick={this.reloadByPgButton}>{i + 1}</a></li>);
                     }
                     elAffix.push(elAffixItem);
                 }
 
-                elOuter.push((<li><a class="pagination-link" aria-label="Goto page 1">1</a></li>));
+                elOuter.push((<li><a class="pagination-link" aria-label="Goto page 1" page={1} onClick={this.reloadByPgButton}>1</a></li>));
                 elOuter.push(elEllipsis);
                 elOuter.push(elAffix);
             }
-        } else {
+        } else { //3<=current<=total-2
             var elMain = [];
 
             var elMainItem;
-            elMainItem = (<li><a class="pagination-link" aria-label="Goto page 1">{current - 1}</a></li>);
+            elMainItem = (<li><a class="pagination-link" aria-label="Goto page 1" page={current - 1} onClick={this.reloadByPgButton}>{current - 1}</a></li>);
             elMain.push(elMainItem);
             elMainItem = (<li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">{current}</a></li>);
             elMain.push(elMainItem);
-            elMainItem = (<li><a class="pagination-link" aria-label="Goto page 1">{current + 1}</a></li>);
+            elMainItem = (<li><a class="pagination-link" aria-label="Goto page 1" page={current + 1} onClick={this.reloadByPgButton}>{current + 1}</a></li>);
             elMain.push(elMainItem);
 
-            var elHead = (<li><a class="pagination-link" aria-label="Goto page 1">1</a></li>);
-            var elTail = (<li><a class="pagination-link" aria-label="Goto page 1">{total}</a></li>);
+            var elHead = (<li><a class="pagination-link" aria-label="Goto page 1" page={1} onClick={this.reloadByPgButton}>1</a></li>);
+            var elTail = (<li><a class="pagination-link" aria-label="Goto page 1" page={total} onClick={this.reloadByPgButton}>{total}</a></li>);
 
             elOuter.push(elHead);
             elOuter.push(elEllipsis);
@@ -171,6 +184,14 @@ class List extends React.Component {
 
         this.handleEdit = this.handleEdit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+        this.changePage = this.changePage.bind(this);
+
+        this.state = {
+            //do not affect paging bar directly
+            currentPage: this.props.currentPage
+        }
+
+        this.pagingBar = React.createRef();
     }
 
     handleEdit(id) {
@@ -211,7 +232,15 @@ class List extends React.Component {
         });
     }
 
+    //called by parent
+    changePage(p) {
+        console.log('in List: changepage');
+        this.setState({
+            currentPage: p
+        });
 
+        this.pagingBar.current.changePage(p);
+    }
 
     render() {
         const lStyle = {
@@ -249,10 +278,12 @@ class List extends React.Component {
                         ))
                     }
                 </table>
-                <ListPagingBar total="10" key={"ListPagingBar"+timestamp} currentPage={this.props.currentPage} changePage={this.props.changePage}/>
+                <ListPagingBar ref={this.pagingBar} total="10" currentPage={this.state.currentPage} reloadPage={this.props.reloadPage} />
             </div>
         )
     }
 }
+
+// key={"ListPagingBar"+timestamp}
 
 export default List;

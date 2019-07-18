@@ -16,7 +16,8 @@ class App extends React.Component {
     this.cancelComplete = this.cancelComplete.bind(this);
     this.deleteComplete = this.deleteComplete.bind(this);
 
-    this.changePage = this.changePage.bind(this);
+    this.reloadPage = this.reloadPage.bind(this);
+    this.noteList = React.createRef();
   }
 
   //----------------- event listeners ------------------------------------------------------
@@ -44,17 +45,23 @@ class App extends React.Component {
   }
 
   //----------------- other ------------------------------------------------------
-  changePage(p) {
-    // alert('in App changepage:'+p);
+  //when page or n per page change
+  reloadPage(p) {
+    var me = this;
+    // alert('in App reloadPage:'+p);
     axios.get('/cmdnotes/api/notes_paging', {
       params: {
         page: p
       }
     }).then(function (resp) {
-      alert('paging return');
+      // alert('paging return');
       console.log(resp);
 
-      ReactDOM.render(<App notes={resp.data.notes} currentPage={resp.data.currentPage}/>, document.getElementById('root'));
+      var page = Number(resp.data.currentPage);
+
+      me.noteList.current.changePage(page);
+
+      // ReactDOM.render(<App notes={resp.data.notes} currentPage={resp.data.currentPage}/>, document.getElementById('root'));
 
     }).catch(function (error) {
       console.log(error);
@@ -66,7 +73,7 @@ class App extends React.Component {
     return (
       <div className="container">
         <a className="button is-primary" onClick={this.toAddNote}>New</a>
-        <List notes={this.props.notes} currentPage={this.props.currentPage} updateComplete={this.updateComplete} cancelComplete={this.cancelComplete} deleteComplete={this.deleteComplete} changePage={this.changePage}/>
+        <List ref={this.noteList} notes={this.props.notes} currentPage={this.props.currentPage} updateComplete={this.updateComplete} cancelComplete={this.cancelComplete} deleteComplete={this.deleteComplete} reloadPage={this.reloadPage}/>
       </div>
     );
   }

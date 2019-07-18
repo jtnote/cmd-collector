@@ -18,6 +18,18 @@ https://mattrosendin.github.io/vue-bulma-pagination/
 --tutorial--
 https://github.com/enaqx/awesome-react
 
+--why getInitialState by props is anti-pattern--
+https://stackoverflow.com/questions/28785106/reactjs-why-is-passing-the-component-initial-state-a-prop-an-anti-pattern
+
+--when re-render--
+https://lucybain.com/blog/2017/react-js-when-to-rerender/
+
+--why constructor called only once--
+https://www.freecodecamp.org/news/force-refreshing-a-react-child-component-the-easy-way-6cdbb9e6d99c/
+
+--change child state--
+https://stackoverflow.com/questions/39041710/react-js-change-child-components-state-from-parent-component
+
 --onclick with parameter--
 https://stackoverflow.com/a/29810951/816109
 https://stackoverflow.com/questions/34350988/react-passing-parameter-via-onclick-event-using-es6-syntax
@@ -25,14 +37,8 @@ https://stackoverflow.com/questions/34350988/react-passing-parameter-via-onclick
 --event.target.value not working--
 https://stackoverflow.com/questions/33523241/e-target-is-accessible-but-e-target-value-is-not-in-react-component
 
---why constructor called only once--
-https://www.freecodecamp.org/news/force-refreshing-a-react-child-component-the-easy-way-6cdbb9e6d99c/
-
 --inline style--
 https://codeburst.io/4-four-ways-to-style-react-components-ac6f323da822
-
---change child state--
-https://stackoverflow.com/questions/39041710/react-js-change-child-components-state-from-parent-component
 
 --projects--
 https://appendto.com/2018/09/25-public-react-repos-apps-to-inspire-your-next-project-part-2/

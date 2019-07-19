@@ -6,22 +6,19 @@ import axios from 'axios'
 class Edit extends React.Component {
     constructor(props) {
         super(props);
-        this.submit = this.submit.bind(this);
-        this.cancel = this.cancel.bind(this);
-        this.handeInputChange = this.handeInputChange.bind(this);
 
         var note = this.props.note;
 
         this.state = {
             action: props.action, //actions: 1.'add'; 2.'update' 
-            id: note == null? 1: note.id,
+            id: note == null ? 1 : note.id,
             title: note == null ? '' : note.title,
             url: note == null ? '' : note.url,
             cmd: note == null ? '' : note.cmd
         }
     }
 
-    handeInputChange(e) {
+    handeInputChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
         })
@@ -29,7 +26,7 @@ class Edit extends React.Component {
         console.log(this.state);
     }
 
-    submit() {
+    submit = () => {
         var me = this;
         console.log(this.state);
         if (this.props.action == 'add') {
@@ -39,10 +36,10 @@ class Edit extends React.Component {
                 cmd: this.state.cmd
             }).then(function (response) {
                 var result = response.data.result;
-                if(result=='ok'){
+                if (result == 'ok') {
                     //TODO should be add complete
                     me.props.updateComplete();
-                }else{
+                } else {
                     //TODO
                     alert('Add error.');
                 }
@@ -57,9 +54,9 @@ class Edit extends React.Component {
                 cmd: this.state.cmd
             }).then(function (response) {
                 var result = response.data.result;
-                if(result=='ok'){
+                if (result == 'ok') {
                     me.props.updateComplete();
-                }else{
+                } else {
                     //TODO
                     alert('Update error.');
                 }
@@ -70,7 +67,7 @@ class Edit extends React.Component {
         }
     }
 
-    cancel(){
+    cancel = () => {
         this.props.cancelComplete();
     }
 

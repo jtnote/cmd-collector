@@ -9,11 +9,9 @@ import Constants from '../Constants';
 class ListItemEdit extends React.Component {
     constructor(props) {
         super(props);
-
-        this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick() {
+    handleClick = () => {
         this.props.onEditClick(this.props.idEdit);
     }
 
@@ -28,11 +26,9 @@ class ListItemEdit extends React.Component {
 class ListItemDelete extends React.Component {
     constructor(props) {
         super(props);
-
-        this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick() {
+    handleClick = () => {
         this.props.onDeleteClick(this.props.idDelete);
     }
 
@@ -59,17 +55,13 @@ class ListPagingBar extends React.Component {
             current: current,
             affix: 3 //TODO: constant
         }
-
-        this.reloadByPgButton = this.reloadByPgButton.bind(this);
-
-        this.changePage = this.changePage.bind(this);
     }
 
 
     // after clicking button of page x
     //(size, current)?
     // call top parent
-    reloadByPgButton(e) {
+    reloadByPgButton = (e) => {
         // e.preventDefault();
         // e.persist();
 
@@ -91,7 +83,7 @@ class ListPagingBar extends React.Component {
     }
 
     //called by parent
-    changePage(total, p) {
+    changePage = (total, p) => {
         this.setState({
             total: total,
             current: p
@@ -185,10 +177,6 @@ class List extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleEdit = this.handleEdit.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
-        this.changePage = this.changePage.bind(this);
-
         this.state = {
             //do not affect paging bar directly
             currentPage: this.props.currentPage,
@@ -199,7 +187,7 @@ class List extends React.Component {
         this.pagingBar = React.createRef();
     }
 
-    handleEdit(id) {
+    handleEdit = (id) => {
         console.log('id=' + id + ", updateComplete=");
         console.log(this.props.updateComplete);
         var me = this;
@@ -218,7 +206,7 @@ class List extends React.Component {
         });
     }
 
-    handleDelete(id) {
+    handleDelete = (id) => {
         console.log('handleDelete id=' + id);
         var me = this;
         axios.post('/cmdnotes/api/delete_note', {
@@ -239,7 +227,7 @@ class List extends React.Component {
 
     //called by parent
     //actually doing reloading
-    changePage(p, totalPages, notes) {
+    changePage = (p, totalPages, notes) => {
         // console.log('in List: changepage, total='+totalPages);
         //placed before rendering of list content?
         this.pagingBar.current.changePage(totalPages, p);

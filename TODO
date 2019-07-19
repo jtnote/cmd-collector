@@ -26,6 +26,7 @@ list button height too big?
 
 web: if page<=3
 web: if final result not full page, then paging bar position changes
+web: page loading(when change page) wait animation?
 
 ==latency==
 after user click "edit"

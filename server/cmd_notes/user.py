@@ -2,6 +2,7 @@ from flask import (
     Blueprint, flash, g, session, redirect, render_template, request, url_for, jsonify
 )
 from flask import current_app as app
+from flask_bcrypt import Bcrypt
 from werkzeug.exceptions import abort
 import mysql.connector
 from mysql.connector import Error
@@ -33,7 +34,7 @@ def encode_auth_token(user_id):
             algorithm='HS256'
         )
     except Exception as e:
-        print(e) 
+        print(e)
         return e
 
 
@@ -66,4 +67,25 @@ def login():
     tok = encode_auth_token('3')
     tok_dec = tok.decode()
     return jsonify({"token": tok_dec})
-    # return redirect(url_for('index'))
+
+
+def register():
+    data = request.json
+    #TODO: rem
+    print(data)
+
+    with app.app_context():
+        # TODO should be singleton?  ref: https://github.com/realpython/flask-jwt-auth
+        bcrypt = Bcrypt(app)
+        psw_hashed = bcrypt.generate_password_hash(
+            data['password'], app.config.get('BCRYPT_LOG_ROUNDS')
+        ).decode()
+
+        db = get_db()
+        cur = db.cursor()
+        sql = "INSERT INTO user (username, password) VALUES (%s, %s)"
+        val = (data['username'], psw_hashed)
+        cur.execute(sql, val)
+        db.commit()
+
+        return jsonify({'result': 'ok'})

@@ -1,9 +1,11 @@
 import os
-from flask import Flask, render_template
+import flask as f
+from flask_bcrypt import Bcrypt
 
 def create_app(test_config=None):
     # create and configure the app
-    app = Flask(__name__, instance_relative_config=True, static_url_path='',  static_folder = '../../web', template_folder="./templates")
+    app = f.Flask(__name__, instance_relative_config=True, static_url_path='',
+                  static_folder='../../web', template_folder="./templates")
 
     # app.debug = False
     if test_config is None:
@@ -12,6 +14,10 @@ def create_app(test_config=None):
     else:
         # load the test config if passed in
         app.config.from_mapping(test_config)
+
+    with app.app_context():
+        bcrypt = Bcrypt(app)
+        f.g.bcrypt_log_rounds = app.config.get('BCRYPT_LOG_ROUNDS')
 
     # ensure the instance folder exists
     try:
@@ -41,8 +47,9 @@ def create_app(test_config=None):
 
     from . import user
     app.register_blueprint(user.bp)
+    app.add_url_rule('/cmdnotes/api/register', 'register',
+                     user.register, methods=['POST'])
     app.add_url_rule('/cmdnotes/api/login', 'login',
                      user.login, methods=['GET', 'POST'])
 
-    
     return app

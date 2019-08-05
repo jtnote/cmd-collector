@@ -9,6 +9,13 @@ https://www.codementor.io/adityamalviya/python-flask-mysql-connection-rxblpje73
 https://stackoverflow.com/a/42791810/816109
 https://stackabuse.com/serving-static-files-with-flask/
 
+--auth without session--
+https://github.com/realpython/flask-jwt-auth
+https://steelkiwi.com/blog/jwt-authorization-python-part-1-practise/
+
+--global states--
+https://stackoverflow.com/questions/19277280/preserving-global-state-in-a-flask-application
+
 --rest api using plain flask--
 https://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask
 

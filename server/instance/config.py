@@ -10,5 +10,6 @@ MYSQL_DB = 'cmd_notes'
 # SESSION_USE_SIGNER = False  # 是否对发送到浏览器上session的cookie值进行加密
 # SESSION_KEY_PREFIX = 'session:'  # 保存到session中的值的前缀
 # SESSION_REDIS = redis.Redis(host='127.0.0.1', port='6379')  
+BCRYPT_LOG_ROUNDS = 12
 SECRET_KEY = 'ASDADASDSADASDSADSADASDSADASD'
 # 用于连接redis的配置

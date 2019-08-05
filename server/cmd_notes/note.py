@@ -42,6 +42,7 @@ def get_notes_paging():
     page_size = int(request.args.get('pageSize') or constants.PAGE_SIZE)
 
     print(page_size)
+    print(request.args.get('token'))
 
     db = get_db()
     cur = db.cursor()

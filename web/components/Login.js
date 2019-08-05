@@ -17,8 +17,12 @@ class Login extends React.Component {
         axios.post('/cmdnotes/api/login').then(function (resp) {
             console.log(resp);
 
+            globalStates.token = resp.data.token;
+
+            //TODO: similar procedure as reloadPage in App, refactor?
             axios.get('/cmdnotes/api/notes_paging', {
                 params: {
+                    token: globalStates.token,
                     page: 1
                 }
             }).then(function (resp) {

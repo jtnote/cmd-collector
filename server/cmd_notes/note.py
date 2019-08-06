@@ -8,6 +8,7 @@ from mysql.connector import errorcode
 
 from cmd_notes.db import get_db
 from . import constants
+from . import auth
 
 bp = Blueprint('note', __name__)
 
@@ -41,8 +42,14 @@ def get_notes_paging():
     page = int(request.args.get('page'))
     page_size = int(request.args.get('pageSize') or constants.PAGE_SIZE)
 
-    print(page_size)
-    print(request.args.get('token'))
+    # print(page_size)
+    # token = request.args.get('token')
+    # print(token)
+    # print('userid=', auth.decode_auth_token(token))
+    auth_res = auth.check_auth_token(request)
+    if auth_res['result'] != 'ok':
+        return 'auth failed'
+    user_id = auth_res['sub']
 
     db = get_db()
     cur = db.cursor()

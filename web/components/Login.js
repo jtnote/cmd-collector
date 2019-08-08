@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 // import globalStates from '../GlobalStates';
 import axios from 'axios'
 import Constants from '../Constants'
-// import Util from '../Util';
+import Util from '../Util';
 
 class Login extends React.Component {
     constructor(props) {
@@ -39,25 +39,33 @@ class Login extends React.Component {
             // console.log(resp);
             if (resp.data.result == 'ok') {
                 // globalStates.token = resp.data.token;
-                console.log(me.props.loginSuccess);
+                // console.log(me.props.loginSuccess);
                 me.props.loginSuccess(resp.data.token);
-                // me.props.changeView(Constants.VIEW_LIST);
                 // return;
 
-                axios.post('/cmdnotes/api/notes_paging', {
-                    token: me.props.token,
-                    page: 1
-                }).then(function (resp) {
-                    console.log(resp);
-                    var page = Number(resp.data.currentPage);
-                    var total = Math.ceil(Number(resp.data.total) / Constants.PAGE_SIZE);
+                Util.loadPage(1, resp.data.token, function (notes, page, total) {
+                    console.log('[Login]before loadpage, total='+total);
+                    me.props.loadPage(notes, page, total);
 
-                    me.props.loadPage(resp.data.notes, page, total);
                     me.props.changeView(Constants.VIEW_LIST);
-                }).catch(function (error) {
-                    console.log(error);
-                }).then(function () {
-                });
+                })
+
+                
+
+                // axios.post('/cmdnotes/api/notes_paging', {
+                //     token: me.props.token,
+                //     page: 1
+                // }).then(function (resp) {
+                //     console.log(resp);
+                //     var page = Number(resp.data.currentPage);
+                //     var total = Math.ceil(Number(resp.data.total) / Constants.PAGE_SIZE);
+
+                //     me.props.loadPage(resp.data.notes, page, total);
+                //     me.props.changeView(Constants.VIEW_LIST);
+                // }).catch(function (error) {
+                //     console.log(error);
+                // }).then(function () {
+                // });
             } else {
                 alert('login failed');
             }

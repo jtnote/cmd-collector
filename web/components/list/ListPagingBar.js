@@ -2,21 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
+import Util from '../../Util';
+
 class ListPagingBar extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log('ListPagingBar: currentPage=' + props.currentPage);
+        // console.log('ListPagingBar: currentPage=' + props.currentPage);
 
         //type conversion
-        var total = Number(this.props.total);
-        var current = Number(this.props.currentPage);
+        // var total = Number(this.props.total);
+        // var current = Number(this.props.currentPage);
 
-        this.state = {
-            total: total,
-            current: current,
-            affix: 3 //TODO: constant
-        }
+        // this.state = {
+        // total: total,
+        // current: current,
+        // affix: 3 //TODO: constant
+        // }
     }
 
 
@@ -28,37 +30,19 @@ class ListPagingBar extends React.Component {
         // e.persist();
 
         var page = e.target.getAttribute('page');
-        // this.props.changePage(Number(page));
+        var me = this;
 
-        this.props.reloadPage(Number(page));
-
-        // axios.get('/cmdnotes/api/notes_paging', {
-        //     params: {
-        //         page: page
-        //     }
-        // }).then(function (response) {
-        //     alert('paging return');
-        // }).catch(function (error) {
-        //     console.log(error);
-        // }).then(function () {
-        // });
-    }
-
-    //called by parent
-    changePage = (total, p) => {
-        this.setState({
-            total: total,
-            current: p
+        Util.loadPage(page, this.props.token, function (notes, page, total) {
+            console.log('[Login]before loadpage, total=' + total);
+            me.props.loadPage(notes, page, total);
         });
     }
 
     render() {
-        console.log('in ListPagingBar');
-        console.log(this.state);
         //TODO: if total<=3
-        var total = this.state.total;
-        var current = this.state.current;
-        var affix = this.state.affix;
+        var total = this.props.totalPages;
+        var current = this.props.currentPage;
+        var affix = this.props.pagingAffix;
 
         var elOuter = [];
         var elEllipsis = (<li><span class="pagination-ellipsis">&hellip;</span></li>);

@@ -6,12 +6,16 @@ export default class Constants {
         return this.VIEW_LOGIN;
     }
 
+    static get VIEW_REGISTER() {
+        return 'register';
+    }
+
     static get VIEW_LOGIN() {
         return 'login';
     }
 
     static get VIEW_EDIT() {
-        return 'login';
+        return 'edit';
     }
 
     static get VIEW_LIST() {

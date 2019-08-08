@@ -30,7 +30,8 @@ import axios from 'axios';
 // }, function () {
 // });
 
-const store = createStore(rootReducer)
+const store = createStore(rootReducer);
+// const util = new Util(store);
 
 ReactDOM.render(<Provider store={store}>
     <App />

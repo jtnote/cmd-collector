@@ -7,11 +7,10 @@ import Edit from './components/Edit';
 import List from './components/List';
 // import Login from './components/Login';
 import Constants from './Constants';
-import globalStates from './GlobalStates';
 import Util from './Util';
 
-// import ListCTN from './containers/ListCTN'
-import LoginCTN from './containers/LoginCTN'
+import ListCTN from './containers/ListCTN';
+import LoginCTN from './containers/LoginCTN';
 
 class App extends React.Component {
   constructor(props) {
@@ -27,10 +26,16 @@ class App extends React.Component {
           <LoginCTN />
         </div>
       );
+    } else if (this.props.view == Constants.VIEW_REGISTER) {
+      viewElement = (
+        <div>
+          register
+        </div>
+      );
     } else if (this.props.view == Constants.VIEW_LIST) {
       viewElement = (
         <div>
-          list
+          <ListCTN />
         </div>
       );
     }

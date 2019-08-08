@@ -3,6 +3,10 @@ import Constants from '../Constants'
 const initialState = {
     token: '',
     notes: [],
+    currentPage: 1,
+    totalPages: 1,
+    //TODO: if total<3?
+    pagingAffix: 3, //used in pagingbar 
     view: Constants.DEFAULT_VIEW
 }
 

@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios'
 
-import globalStates from '../GlobalStates';
 import Constants from '../Constants'
 import Login from './Login'
 

@@ -5,21 +5,21 @@ import axios from 'axios'
 import Edit from './Edit'
 import Constants from '../Constants';
 
-import LisItemEdit from './list/ListItemEdit';
+import ListItemEdit from './list/ListItemEdit';
 import ListItemDelete from './list/ListItemDelete';
-import ListPagingBar from './list/ListPagingBar';
+import ListPagingBarCTN from '../containers/list/ListPagingBarCTN';
 
 
 class List extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
+        // this.state = {
             //do not affect paging bar directly
-            currentPage: this.props.currentPage,
-            totalPages: this.props.totalPages,
-            notes: this.props.notes
-        }
+            // currentPage: this.props.currentPage,
+            // totalPages: this.props.totalPages,
+            // notes: this.props.notes
+        // }
 
         this.pagingBar = React.createRef();
     }
@@ -81,6 +81,8 @@ class List extends React.Component {
             textDecoration: 'underline'
         };
 
+        console.log('[List]props.totalPages='+this.props.totalPages+', currP='+this.props.currentPage);
+
         return (
             <div>
                 <table className="table cc-mainlist-table">
@@ -94,7 +96,7 @@ class List extends React.Component {
                         </tr>
                     </thead>
                     {
-                        this.state.notes.map((note, i) => (
+                        this.props.notes.map((note, i) => (
                             <tr>
                                 <td>{note.id}</td>
                                 <td><div className="cc-mainlist-table-title">{note.title}</div></td>
@@ -110,7 +112,8 @@ class List extends React.Component {
                         ))
                     }
                 </table>
-                <ListPagingBar ref={this.pagingBar} total={this.state.totalPages} currentPage={this.state.currentPage} reloadPage={this.props.reloadPage} />
+                <ListPagingBarCTN ref={this.pagingBar} total={this.props.totalPages} currentPage={this.props.currentPage} />
+                {/* reloadPage={this.props.reloadPage} */}
             </div>
         )
     }

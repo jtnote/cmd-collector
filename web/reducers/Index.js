@@ -2,9 +2,13 @@ import Constants from '../Constants'
 
 const initialState = {
     token: '',
+
     notes: [],
     currentPage: 1,
     totalPages: 1,
+
+    editAction: 'add',
+
     //TODO: if total<3?
     pagingAffix: 3, //used in pagingbar 
     view: Constants.DEFAULT_VIEW
@@ -17,6 +21,8 @@ function rootReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 view: action.view
             });
+        case 'CHANGE_EDIT_ACTION':
+            return Object.assign({}, state, { editAction: action.editAction });
         case 'LOAD_PAGE':
             return Object.assign({}, state, {
                 notes: action.notes,

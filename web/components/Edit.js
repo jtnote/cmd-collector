@@ -3,18 +3,20 @@ import ReactDOM from 'react-dom'
 
 import axios from 'axios'
 
+import Constants from '../Constants'
+
 class Edit extends React.Component {
     constructor(props) {
         super(props);
 
-        var note = this.props.note;
+        // var note = this.props.note;
 
         this.state = {
-            action: props.action, //actions: 1.'add'; 2.'update' 
-            id: note == null ? 1 : note.id,
-            title: note == null ? '' : note.title,
-            url: note == null ? '' : note.url,
-            cmd: note == null ? '' : note.cmd
+            // action: props.action, //actions: 1.'add'; 2.'update' 
+            id: props.note == null ? 0 : note.id,
+            title: props.note == null ? '' : note.title,
+            url: props.note == null ? '' : note.url,
+            cmd: props.note == null ? '' : note.cmd
         }
     }
 
@@ -29,7 +31,7 @@ class Edit extends React.Component {
     submit = () => {
         var me = this;
         console.log(this.state);
-        if (this.props.action == 'add') {
+        if (this.props.editAction == Constants.EDIT_ACTION_ADD) {
             axios.post('/cmdnotes/api/create_note', {
                 title: this.state.title,
                 url: this.state.url,
@@ -46,7 +48,7 @@ class Edit extends React.Component {
             }).catch(function (error) {
                 console.log(error);
             });
-        } else if (this.props.action == 'update') {
+        } else if (this.props.editAction == Constants.EDIT_ACTION_EDIT) {
             axios.post('/cmdnotes/api/update_note', {
                 id: this.state.id,
                 title: this.state.title,
@@ -73,9 +75,9 @@ class Edit extends React.Component {
 
     render() {
         var textSubmit = '';
-        if (this.props.action == 'add') {
+        if (this.props.editAction == Constants.EDIT_ACTION_ADD) {
             textSubmit = 'Add';
-        } else if (this.props.action == 'update') {
+        } else if (this.props.editAction == Constants.EDIT_ACTION_EDIT) {
             textSubmit = 'Save';
         }
 

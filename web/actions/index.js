@@ -1,6 +1,11 @@
 export const changeView = (view) => ({
     type: 'CHANGE_VIEW',
-    view: view
+    view
+});
+
+export const changeEditAction = (editAction) => ({
+    type: 'CHANGE_EDIT_ACTION',
+    editAction
 });
 
 export const loadPage = (notes, currentPage, totalPages) => ({

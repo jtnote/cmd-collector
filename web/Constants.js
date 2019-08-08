@@ -3,7 +3,19 @@
 
 export default class Constants {
     static get DEFAULT_VIEW() {
+        return this.VIEW_LOGIN;
+    }
+
+    static get VIEW_LOGIN() {
         return 'login';
+    }
+
+    static get VIEW_EDIT() {
+        return 'login';
+    }
+
+    static get VIEW_LIST() {
+        return 'list';
     }
 
     static get PAGE_SIZE() {

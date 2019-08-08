@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import globalStates from '../GlobalStates';
+// import globalStates from '../GlobalStates';
 import axios from 'axios'
 import Constants from '../Constants'
-import App from '../App'
+// import Util from '../Util';
 
 class Login extends React.Component {
     constructor(props) {
@@ -30,26 +30,30 @@ class Login extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         // const data = new FormData(e.target);
+        var me = this;
 
         axios.post('/cmdnotes/api/login', {
             username: this.state.username,
             password: this.state.password
         }).then(function (resp) {
-            console.log(resp);
-
+            // console.log(resp);
             if (resp.data.result == 'ok') {
-                globalStates.token = resp.data.token;
+                // globalStates.token = resp.data.token;
+                console.log(me.props.loginSuccess);
+                me.props.loginSuccess(resp.data.token);
+                // me.props.changeView(Constants.VIEW_LIST);
+                // return;
 
-                //TODO: similar procedure as reloadPage in App, refactor?
                 axios.post('/cmdnotes/api/notes_paging', {
-                    token: globalStates.token,
+                    token: me.props.token,
                     page: 1
                 }).then(function (resp) {
                     console.log(resp);
                     var page = Number(resp.data.currentPage);
                     var total = Math.ceil(Number(resp.data.total) / Constants.PAGE_SIZE);
-                    
-                    // ReactDOM.render(<App notes={resp.data.notes} totalPages={total} currentPage={page} />, document.getElementById('root'));
+
+                    me.props.loadPage(resp.data.notes, page, total);
+                    me.props.changeView(Constants.VIEW_LIST);
                 }).catch(function (error) {
                     console.log(error);
                 }).then(function () {

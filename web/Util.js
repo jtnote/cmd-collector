@@ -5,7 +5,7 @@ import axios from 'axios'
 import Login from './components/Login'
 import Constants from './Constants'
 
-function checkAuth(resp) {
+function checkAuth(app, resp) {
     console.log("checkAuth");
     if (resp.data.result == 'ok') {
         return true;
@@ -15,20 +15,20 @@ function checkAuth(resp) {
         return false;
     } else if (resp.data.result == 'error' && resp.data.reason == Constants.ERROR_AUTH_EXPIRED) {
         //TODO notification
-        toLogin();
+        toLogin(app);
         return false;
     }
 }
 
-function toLogin() {
-    ReactDOM.render(<Login />, document.getElementById('root'));
+function toLogin(app) {
+    ReactDOM.render(<Login setAppState={app.setAppState} />, document.getElementById('root'));
 }
 
 export default {
-    svcRequest: function (url, params, cbThen, cbFinally) {
+    svcRequest: function (app, url, params, cbThen, cbFinally) {
         axios.post(url, params).then(function (resp) {
             console.log(resp);
-            if (!checkAuth(resp)) {
+            if (!checkAuth(app, resp)) {
                 return;
             }
 

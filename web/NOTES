@@ -2,6 +2,11 @@ https://www.valentinog.com/blog/babel/
 https://medium.com/@siddharthac6/getting-started-with-react-js-using-webpack-and-babel-66549f8fbcb8
 
 
+==js==
+--multiple imports--
+https://stackoverflow.com/questions/45995136/export-default-was-not-found
+
+
 ==css==
 --trim long text in table--
 https://stackoverflow.com/questions/8818495/how-can-i-truncate-long-texts-in-a-table-using-css/8818546
@@ -45,6 +50,17 @@ https://codeburst.io/4-four-ways-to-style-react-components-ac6f323da822
 --projects--
 https://appendto.com/2018/09/25-public-react-repos-apps-to-inspire-your-next-project-part-2/
 https://www.one-tab.com/page/UK3ybUHRTfqkMrQQuecWwg
+
+--misc--
+recursive rendering(e.g. import b from B in A.js, then import a from A in B.js):
+error = "Uncaught TypeError: Cannot read property 'displayName' of undefined"
+
+Does react Rerender on props change?
+A re-render can only be triggered if a component's state has changed. The state can change from a props change, or from a direct setState change. The component gets the updated state and React decides if it should re-render the component.
+
+
+==redux==
+how does redux achieve this: it mapStateToProps, then component props change even after component mounted
 
 ==babel==
 --arrow function support--

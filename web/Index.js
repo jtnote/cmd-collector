@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
 
 import Edit from './components/Edit';
 import List from './components/List';
 import Login from './components/Login';
 import Register from './components/Register';
-import App from './App';
 import Constants from './Constants';
 import Util from './Util';
+import rootReducer from './reducers/Index'
+import App from './App';
 
 import axios from 'axios';
 
@@ -27,4 +30,8 @@ import axios from 'axios';
 // }, function () {
 // });
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const store = createStore(rootReducer)
+
+ReactDOM.render(<Provider store={store}>
+    <App />
+</Provider>, document.getElementById('root'));

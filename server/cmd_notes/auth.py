@@ -3,11 +3,13 @@ from flask import current_app as app
 from flask_bcrypt import Bcrypt
 import datetime
 
-
+# return: ok/expired/invalid
 def check_auth_token(req):
-    token = req.args.get('token')
+    # assume all request using POST
+    token = req.json['token']
     # TODO if unable to decode
     auth_res = decode_auth_token(token)
+    # TODO check id valid or not?
     if auth_res['result'] != 'ok':
         print('auth failed: ', auth_res['result'])
     return auth_res
@@ -21,7 +23,8 @@ def encode_auth_token(user_id):
     # print(app.config.get('SECRET_KEY'))
     try:
         payload = {
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(days=0, seconds=5),
+            # TODO: expire time
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(days=0, seconds=600),
             'iat': datetime.datetime.utcnow(),
             'sub': user_id
         }

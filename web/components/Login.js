@@ -8,33 +8,55 @@ import App from '../App'
 class Login extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            username: '',
+            password: ''
+        }
+    }
+
+    handleUsernameChange = (e) => {
+        this.setState({
+            username: e.target.value
+        })
+    }
+
+    handlePasswordChange = (e) => {
+        this.setState({
+            password: e.target.value
+        })
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
-        const data = new FormData(e.target);
+        // const data = new FormData(e.target);
 
-        axios.post('/cmdnotes/api/login').then(function (resp) {
+        axios.post('/cmdnotes/api/login', {
+            username: this.state.username,
+            password: this.state.password
+        }).then(function (resp) {
             console.log(resp);
 
-            globalStates.token = resp.data.token;
+            if (resp.data.result == 'ok') {
+                globalStates.token = resp.data.token;
 
-            //TODO: similar procedure as reloadPage in App, refactor?
-            axios.get('/cmdnotes/api/notes_paging', {
-                params: {
+                //TODO: similar procedure as reloadPage in App, refactor?
+                axios.post('/cmdnotes/api/notes_paging', {
                     token: globalStates.token,
                     page: 1
-                }
-            }).then(function (resp) {
-                console.log(resp);
-                var page = Number(resp.data.currentPage);
-                var total = Math.ceil(Number(resp.data.total) / Constants.PAGE_SIZE);
-                ReactDOM.render(<App notes={resp.data.notes} totalPages={total} currentPage={page} />, document.getElementById('root'));
-            }).catch(function (error) {
-                console.log(error);
-            }).then(function () {
-            });
-
+                }).then(function (resp) {
+                    console.log(resp);
+                    var page = Number(resp.data.currentPage);
+                    var total = Math.ceil(Number(resp.data.total) / Constants.PAGE_SIZE);
+                    
+                    // ReactDOM.render(<App notes={resp.data.notes} totalPages={total} currentPage={page} />, document.getElementById('root'));
+                }).catch(function (error) {
+                    console.log(error);
+                }).then(function () {
+                });
+            } else {
+                alert('login failed');
+            }
         }).catch(function (error) {
             console.log(error);
         }).then(function () {
@@ -47,7 +69,7 @@ class Login extends React.Component {
             <form onSubmit={this.handleSubmit}>
                 <div className="field">
                     <p className="control has-icons-left has-icons-right">
-                        <input className="input" type="email" placeholder="Email" name="username" />
+                        <input className="input" type="email" placeholder="Email" name="username" onChange={this.handleUsernameChange} />
                         <span className="icon is-small is-left">
                             <i className="fas fa-envelope"></i>
                         </span>
@@ -58,17 +80,20 @@ class Login extends React.Component {
                 </div>
                 <div className="field">
                     <p className="control has-icons-left">
-                        <input className="input" type="password" placeholder="Password" />
+                        <input className="input" type="password" placeholder="Password" onChange={this.handlePasswordChange} />
                         <span className="icon is-small is-left">
                             <i className="fas fa-lock"></i>
                         </span>
                     </p>
                 </div>
-                <div className="field">
+                <div className="field is-grouped">
                     <p className="control">
                         <button className="button is-success">
                             Login
                         </button>
+                    </p>
+                    <p className="control">
+                        <a href="">Register</a>
                     </p>
                 </div>
             </form>

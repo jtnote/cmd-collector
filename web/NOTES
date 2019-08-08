@@ -6,6 +6,7 @@ https://medium.com/@siddharthac6/getting-started-with-react-js-using-webpack-and
 --trim long text in table--
 https://stackoverflow.com/questions/8818495/how-can-i-truncate-long-texts-in-a-table-using-css/8818546
 
+
 ==bulma==
 --pagination--
 https://bulma.io/documentation/components/pagination/
@@ -13,6 +14,7 @@ https://bulma.io/documentation/components/pagination/
 --pagination example(vue)--
 https://github.com/mattrosendin/vue-bulma-pagination
 https://mattrosendin.github.io/vue-bulma-pagination/
+
 
 ==react==
 --tutorial--

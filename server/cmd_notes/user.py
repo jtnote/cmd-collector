@@ -17,14 +17,23 @@ bp = Blueprint('user', __name__)
 
 
 def login():
-    # if request.method == 'POST':
-    print(request.form)
-    # print('in login, un='+request.form['username'])
-    # session['username'] = request.form['username']
-    # print('sid='+session['id'])
-    tok = auth.encode_auth_token('3')
-    tok_dec = tok.decode()
-    return jsonify({"token": tok_dec})
+    data = request.json
+
+    db = get_db()
+    cur = db.cursor()
+    sql = "SELECT id,password FROM user where username=%s"
+    val = (data['username'],)
+    cur.execute(sql, val)
+    user = cur.fetchone()
+
+    # TODO should be singleton?  ref: https://github.com/realpython/flask-jwt-auth
+    bcrypt = Bcrypt(app)
+    if bcrypt.check_password_hash(user[1], data['password']):
+        tok = auth.encode_auth_token(user[0])
+        tok_dec = tok.decode()
+        return jsonify({'result': 'ok', 'token': tok_dec})
+    else:
+        return jsonify({'result': 'error', 'reason': ''})
 
 
 def register():

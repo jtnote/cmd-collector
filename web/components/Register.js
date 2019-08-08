@@ -1,13 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import globalStates from '../GlobalStates';
 import axios from 'axios'
+
+import globalStates from '../GlobalStates';
 import Constants from '../Constants'
 import Login from './Login'
 
 class Register extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            username: '',
+            password: '',
+            passwordCheck: 'N/A',
+            passwordCheckResult: false
+        }
+    }
+
+    handleUsernameChange = (e) => {
+        this.setState({ username: e.target.value });
+    }
+
+    handlePasswordChange = (e) => {
+        this.setState({
+            password: e.target.value,
+            passwordCheckResult: this.state.passwordCheck == e.target.value
+        });
+    }
+
+    handlePasswordCheckChange = (e) => {
+        this.setState({
+            passwordCheck: e.target.value,
+            passwordCheckResult: this.state.password == e.target.value
+        });
     }
 
     handleSubmit = (e) => {
@@ -15,8 +41,8 @@ class Register extends React.Component {
         const data = new FormData(e.target);
 
         axios.post('/cmdnotes/api/register', {
-            username: 'uuu',
-            password: 'ppssww'
+            username: this.state.username,
+            password: this.state.password //TODO: encrypt?
         }).then(function (resp) {
             console.log(resp);
 
@@ -42,11 +68,18 @@ class Register extends React.Component {
     }
 
     render = () => {
+        console.log(this.state.passwordCheckResult);
+
+        var warningPswCheck = '';
+        if (!this.state.passwordCheckResult) {
+            warningPswCheck = 'password not match!'
+        }
+
         return (
             <form onSubmit={this.handleSubmit}>
                 <div className="field">
                     <p className="control has-icons-left has-icons-right">
-                        <input className="input" type="email" placeholder="Email" name="username" />
+                        <input className="input" type="email" placeholder="Email" name="username" onChange={this.handleUsernameChange} />
                         <span className="icon is-small is-left">
                             <i className="fas fa-envelope"></i>
                         </span>
@@ -57,7 +90,7 @@ class Register extends React.Component {
                 </div>
                 <div className="field">
                     <p className="control has-icons-left">
-                        <input className="input" type="password" placeholder="Password" />
+                        <input className="input" type="password" placeholder="Password" onChange={this.handlePasswordChange} />
                         <span className="icon is-small is-left">
                             <i className="fas fa-lock"></i>
                         </span>
@@ -65,10 +98,15 @@ class Register extends React.Component {
                 </div>
                 <div className="field">
                     <p className="control has-icons-left">
-                        <input className="input" type="password" placeholder="Repeat password" />
+                        <input className="input" type="password" placeholder="Repeat password" onChange={this.handlePasswordCheckChange} />
                         <span className="icon is-small is-left">
                             <i className="fas fa-lock"></i>
                         </span>
+                    </p>
+                </div>
+                <div className="field">
+                    <p className="control">
+                        <span>{warningPswCheck}</span>
                     </p>
                 </div>
                 <div className="field">

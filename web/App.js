@@ -1,17 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
+import axios from 'axios';
 
 import Edit from './components/Edit';
 import List from './components/List';
 import Login from './components/Login';
 import Constants from './Constants';
 import globalStates from './GlobalStates';
-
-import axios from 'axios';
+import Util from './Util';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      view: this.props.view == null ? Constants.DEFAULT_VIEW : this.props.view
+    }
 
     this.toAddNote = this.toAddNote.bind(this);
 
@@ -48,21 +52,39 @@ class App extends React.Component {
   }
 
   //----------------- other ------------------------------------------------------
+  initList() {
+    Util.svcRequest('/cmdnotes/api/notes_paging', {
+      page: 1,
+      token: globalStates.token
+    }, function (resp) {
+      var page = Number(resp.data.currentPage);
+      var total = Math.ceil(Number(resp.data.total) / Constants.PAGE_SIZE);
+
+      // ReactDOM.render(<App notes={resp.data.notes} totalPages={total} currentPage={page} />, document.getElementById('root'));
+    }, function () {
+    });
+  }
+
   //when page or n per page change
   reloadPage(p) {
     var me = this;
     // alert('in App reloadPage:'+p);
-    axios.get('/cmdnotes/api/notes_paging', {
-      params: {
-        token: globalStates.token,
-        page: p
-      }
+    axios.post('/cmdnotes/api/notes_paging', {
+      // params: {
+      token: globalStates.token,
+      page: p
+      // }
     }).then(function (resp) {
       // alert('paging return');
       console.log(resp);
 
       var page = Number(resp.data.currentPage);
       var total = Math.ceil(Number(resp.data.total) / Constants.PAGE_SIZE);
+
+      //cache
+      // globalStates.notes = resp.data.notes;
+      // globalStates.currentPage = page;
+      // globalStates.total = total;
 
       me.noteList.current.changePage(page, total, resp.data.notes);
 
@@ -75,14 +97,27 @@ class App extends React.Component {
   }
 
   render() {
-    // alert('render' + Constants.PAGE_SIZE);
-    console.log('[App]global state=');
-    console.log(globalStates);
+    // console.log('[App]global state=');
+    // console.log(globalStates);
+    var viewComponent = null;
+    var me = this;
+
+    if (this.state.view == 'login') {
+      viewComponent = (
+        <div className="container">
+          <Login />
+        </div>
+      );
+    } else if (this.state.view == 'list') {
+      viewComponent = (
+        <div className="container">
+          <a className="button is-primary" onClick={me.toAddNote}>New</a>
+          <List ref={me.noteList} notes={me.state.notes} totalPages={me.state.totalPages} currentPage={me.state.currentPage} updateComplete={me.updateComplete} cancelComplete={me.cancelComplete} deleteComplete={me.deleteComplete} reloadPage={me.reloadPage} />
+        </div>
+      );
+    }
     return (
-      <div className="container">
-        <a className="button is-primary" onClick={this.toAddNote}>New</a>
-        <List ref={this.noteList} notes={this.props.notes} totalPages={this.props.totalPages} currentPage={this.props.currentPage} updateComplete={this.updateComplete} cancelComplete={this.cancelComplete} deleteComplete={this.deleteComplete} reloadPage={this.reloadPage} />
-      </div>
+      { viewComponent }
     );
   }
 }

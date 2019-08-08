@@ -39,8 +39,13 @@ def get_notes():
 
 
 def get_notes_paging():
-    page = int(request.args.get('page'))
-    page_size = int(request.args.get('pageSize') or constants.PAGE_SIZE)
+    data = request.json
+    # page = int(request.args.get('page'))
+    # page_size = int(request.args.get('pageSize') or constants.PAGE_SIZE)
+    print(data)
+    page = int(data['page'])
+    page_size = int(data['pageSize']
+                    if 'pageSize' in data else constants.PAGE_SIZE)
 
     # print(page_size)
     # token = request.args.get('token')
@@ -48,7 +53,7 @@ def get_notes_paging():
     # print('userid=', auth.decode_auth_token(token))
     auth_res = auth.check_auth_token(request)
     if auth_res['result'] != 'ok':
-        return 'auth failed'
+        return jsonify({'result': 'error', 'reason': auth_res['result']})
     user_id = auth_res['sub']
 
     db = get_db()
@@ -72,7 +77,7 @@ def get_notes_paging():
     total = cur.fetchone()[0]
 
     # TODO: should return current page?
-    return jsonify({'notes': notes, 'total': total, 'currentPage': page})
+    return jsonify({'result': 'ok', 'notes': notes, 'total': total, 'currentPage': page})
 
 
 def get_note():

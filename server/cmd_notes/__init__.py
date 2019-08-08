@@ -34,7 +34,7 @@ def create_app(test_config=None):
     app.register_blueprint(note.bp)
     app.add_url_rule('/cmdnotes/api/notes', 'notes', note.get_notes)
     app.add_url_rule('/cmdnotes/api/notes_paging', 'notes_paging',
-                     note.get_notes_paging, methods=['GET'])
+                     note.get_notes_paging, methods=['POST'])
     app.add_url_rule('/cmdnotes/api/create_note', 'create_note',
                      note.create_note, methods=['POST'])
     app.add_url_rule('/cmdnotes/api/update_note', 'update_note',
@@ -50,6 +50,6 @@ def create_app(test_config=None):
     app.add_url_rule('/cmdnotes/api/register', 'register',
                      user.register, methods=['POST'])
     app.add_url_rule('/cmdnotes/api/login', 'login',
-                     user.login, methods=['GET', 'POST'])
+                     user.login, methods=['POST'])
 
     return app

@@ -36,6 +36,11 @@ bug: need to login after refresh
 
 post request no token in List.js
 
+click "next" button to the last page, pagingBar will shift to somewhere above if last page not full
+
+expiration test of interaction flow of all api
+token invalid test of interaction flow of all api
+
 ==latency==
 after user click "edit"
 after user click "cancel" in edit page

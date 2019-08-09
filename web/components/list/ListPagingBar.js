@@ -32,23 +32,17 @@ class ListPagingBar extends React.Component {
         var page = e.target.getAttribute('page');
         var me = this;
 
-        Util.loadPage(page, this.props.token, function (notes, total, currentPage, totalPages) {
-            me.props.loadPage(notes, total, currentPage, totalPages);
-        });
+        Util.loadPage(page, this.props.token, function (notes, total, currentPage, totalPages) { });
     }
 
     reloadPrev = (e) => {
         var me = this;
-        Util.loadPage(this.props.currentPage == 1 ? 1 : this.props.currentPage - 1, this.props.token, function (notes, total, currentPage, totalPages) {
-            me.props.loadPage(notes, total, currentPage, totalPages);
-        });
+        Util.loadPage(this.props.currentPage == 1 ? 1 : this.props.currentPage - 1, this.props.token, function (notes, total, currentPage, totalPages) { });
     }
 
     reloadNext = (e) => {
         var me = this;
-        Util.loadPage(this.props.currentPage == this.props.totalPages ? this.props.totalPages : this.props.currentPage + 1, this.props.token, function (notes, total, currentPage, totalPages) {
-            me.props.loadPage(notes, total, currentPage, totalPages);
-        });
+        Util.loadPage(this.props.currentPage == this.props.totalPages ? this.props.totalPages : this.props.currentPage + 1, this.props.token, function (notes, total, currentPage, totalPages) { });
     }
 
     render() {

@@ -47,7 +47,6 @@ class Edit extends React.Component {
                     }
 
                     Util.loadPage(currentPage, me.props.token, function (notes, total, currentPage, totalPages) {
-                        me.props.loadPage(notes, total, currentPage, totalPages);
                         me.props.changeView(Constants.VIEW_LIST);
                     });
                 } else {
@@ -67,7 +66,6 @@ class Edit extends React.Component {
                 var result = response.data.result;
                 if (result == 'ok') {
                     Util.loadPage(me.props.currentPage, me.props.token, function (notes, total, currentPage, totalPages) {
-                        me.props.loadPage(notes, total, currentPage, totalPages);
                         me.props.changeView(Constants.VIEW_LIST);
                     });
                 } else {

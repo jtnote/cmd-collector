@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
 import List from '../components/List'
-import { toEdit, changeView, loadPage } from '../actions/index'
+import { toEdit, changeView, loadPage } from '../actions/Index'
 import Constants from '../Constants'
 
 const mapStateToProps = (state) => ({

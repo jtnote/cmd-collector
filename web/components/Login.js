@@ -45,7 +45,6 @@ class Login extends React.Component {
 
                 Util.loadPage(1, resp.data.token, function (notes, total, currentPage, totalPages) {
                     console.log('[Login]before loadpage, total=' + total + ', totalPages=' + totalPages);
-                    me.props.loadPage(notes, total, currentPage, totalPages);
                     me.props.changeView(Constants.VIEW_LIST);
                 })
 

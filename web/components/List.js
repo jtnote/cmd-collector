@@ -62,7 +62,6 @@ class List extends React.Component {
                 }
                 // me.props.changeView(Constants.VIEW_LIST);
                 Util.loadPage(currentPage, me.props.token, function (notes, total, currentPage, totalPages) {
-                    me.props.loadPage(notes, total, currentPage, totalPages);
                     me.props.changeView(Constants.VIEW_LIST);
                 });
             }

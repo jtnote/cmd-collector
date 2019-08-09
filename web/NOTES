@@ -6,6 +6,8 @@ https://medium.com/@siddharthac6/getting-started-with-react-js-using-webpack-and
 --multiple imports--
 https://stackoverflow.com/questions/45995136/export-default-was-not-found
 
+--export multiple functions--
+https://stackoverflow.com/questions/33178843/es6-export-default-with-multiple-functions-referring-to-each-other
 
 ==css==
 --trim long text in table--
@@ -60,7 +62,16 @@ A re-render can only be triggered if a component's state has changed. The state 
 
 
 ==redux==
+--access store outside react--
+https://daveceddia.com/access-redux-store-outside-react/
+
+--misc--
 how does redux achieve this: it mapStateToProps, then component props change even after component mounted
+
+--connect--
+https://stackoverflow.com/questions/40847699/is-it-possible-to-connect-non-component-class-to-redux-store
+The connect function is not going to work with anything other than React components. What you can do is pass your store instance to your class and call store.dispatch, store.getState, and store.subscribe directly.
+Keep in mind that if you subscribe, you should also have functionality to unsubscribe, otherwise your store will be holding a reference to your class instance forever, creating a memory leak.
 
 ==babel==
 --arrow function support--

@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 
 import Register from '../components/Register'
-// import {  } from '../actions/index'
 import Constants from '../Constants'
 
 const mapStateToProps = (state) => ({

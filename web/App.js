@@ -3,12 +3,10 @@ import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
 import axios from 'axios';
 
-// import Edit from './components/Edit';
 import List from './components/List';
-// import Login from './components/Login';
 import Constants from './Constants';
 import Util from './Util';
-import { changeView, changeEditAction } from './actions/Index'
+import { changeView } from './actions/Index';
 
 import ListCTN from './containers/ListCTN';
 import LoginCTN from './containers/LoginCTN';
@@ -20,7 +18,6 @@ class App extends React.Component {
   }
 
   toAdd = () => {
-    this.props.changeEditAction(Constants.EDIT_ACTION_ADD);
     this.props.changeView(Constants.VIEW_ADD);
   }
 
@@ -47,6 +44,12 @@ class App extends React.Component {
           <EditCTN />
         </div>
       );
+    } else if (this.props.view == Constants.VIEW_EDIT) {
+      viewElement = (
+        <div className="container">
+          <EditCTN />
+        </div>
+      );
     } else if (this.props.view == Constants.VIEW_LIST) {
       viewElement = (
         <div className="container">
@@ -57,7 +60,7 @@ class App extends React.Component {
     }
     return (
       <div>
-        <div>state: {}</div>
+        {/* <div>state: {}</div> */}
         {viewElement}
       </div>
     )
@@ -70,8 +73,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  changeView: (view) => dispatch(changeView(view)),
-  changeEditAction: (editAction)=>dispatch(changeEditAction(editAction))
+  changeView: (view) => dispatch(changeView(view))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

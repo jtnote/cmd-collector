@@ -1,25 +1,19 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import axios from 'axios'
-import Edit from './Edit'
-import Constants from '../Constants';
+import axios from 'axios';
 
+import Edit from './Edit';
 import ListItemEdit from './list/ListItemEdit';
 import ListItemDelete from './list/ListItemDelete';
 import ListPagingBarCTN from '../containers/list/ListPagingBarCTN';
+import Constants from '../Constants';
+import Util from '../Util';
 
 
 class List extends React.Component {
     constructor(props) {
         super(props);
-
-        // this.state = {
-            //do not affect paging bar directly
-            // currentPage: this.props.currentPage,
-            // totalPages: this.props.totalPages,
-            // notes: this.props.notes
-        // }
 
         this.pagingBar = React.createRef();
     }
@@ -34,8 +28,10 @@ class List extends React.Component {
             }
         }).then(function (response) {
             // console.log(response);
-            var note = response.data.note;
-            ReactDOM.render(<Edit action="update" note={note} updateComplete={me.props.updateComplete} cancelComplete={me.props.cancelComplete} />, document.getElementById('root'));
+            var noteEdit = response.data.note;
+            me.props.toEdit(noteEdit);
+
+            // ReactDOM.render(<Edit action="update" note={note} updateComplete={me.props.updateComplete} cancelComplete={me.props.cancelComplete} />, document.getElementById('root'));
         }).catch(function (error) {
             console.log(error);
         }).then(function () {
@@ -53,7 +49,22 @@ class List extends React.Component {
             var result = response.data.result;
             if (result == 'ok') {
                 console.log('in handleDelete');
-                me.props.deleteComplete();
+                var currentPage;
+                if (me.props.notes.length == 1) {
+                    //current page is last page
+                    if (me.props.totalPages == 1) {
+                        currentPage = 1;//TODO: empty list?
+                    } else {
+                        currentPage = me.props.currentPage - 1;
+                    }
+                } else {
+                    currentPage = me.props.currentPage;
+                }
+                // me.props.changeView(Constants.VIEW_LIST);
+                Util.loadPage(currentPage, me.props.token, function (notes, total, currentPage, totalPages) {
+                    me.props.loadPage(notes, total, currentPage, totalPages);
+                    me.props.changeView(Constants.VIEW_LIST);
+                });
             }
         }).catch(function (error) {
             console.log(error);
@@ -81,7 +92,7 @@ class List extends React.Component {
             textDecoration: 'underline'
         };
 
-        console.log('[List]props.totalPages='+this.props.totalPages+', currP='+this.props.currentPage);
+        console.log('[List]props.totalPages=' + this.props.totalPages + ', currP=' + this.props.currentPage);
 
         return (
             <div>
@@ -113,7 +124,6 @@ class List extends React.Component {
                     }
                 </table>
                 <ListPagingBarCTN ref={this.pagingBar} total={this.props.totalPages} currentPage={this.props.currentPage} />
-                {/* reloadPage={this.props.reloadPage} */}
             </div>
         )
     }

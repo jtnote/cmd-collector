@@ -32,7 +32,7 @@ def create_app(test_config=None):
     # add note bp
     from . import note
     app.register_blueprint(note.bp)
-    app.add_url_rule('/cmdnotes/api/notes', 'notes', note.get_notes)
+    # app.add_url_rule('/cmdnotes/api/notes', 'notes', note.notes)
     app.add_url_rule('/cmdnotes/api/notes_paging', 'notes_paging',
                      note.get_notes_paging, methods=['POST'])
     app.add_url_rule('/cmdnotes/api/create_note', 'create_note',

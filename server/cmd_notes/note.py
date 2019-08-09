@@ -14,8 +14,10 @@ bp = Blueprint('note', __name__)
 
 # TODO: methods option available?
 
-
-def get_notes():
+"""
+TODO: not used
+"""
+def notes():
     db = get_db()
     cur = db.cursor()
     cur.execute(

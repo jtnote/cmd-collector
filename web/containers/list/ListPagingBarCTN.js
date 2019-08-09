@@ -14,9 +14,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    // loginSuccess: (token) => dispatch(loginSuccess(token)),
-    // changeView: (view) => dispatch(changeView(view)),
-    loadPage: (notes, currentPage, totalPages) => dispatch(loadPage(notes, currentPage, totalPages))
+    loadPage: (notes, total, currentPage, totalPages) => dispatch(loadPage(notes, total, currentPage, totalPages))
 })
 
 export default connect(

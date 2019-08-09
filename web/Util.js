@@ -40,30 +40,20 @@ export default {
         }).then(cbFinally);
     },
 
+    /*
+    cbLoadPage(notes, total, currentPage, totalPages)
+    */
     loadPage: (p, token, cbLoadPage) => {
-        // var me = this;
-        // alert('in App reloadPage:'+p);
         axios.post('/cmdnotes/api/notes_paging', {
             token: token,
             page: p
         }).then(function (resp) {
-            var page = Number(resp.data.currentPage);
-            var total = Math.ceil(Number(resp.data.total) / Constants.PAGE_SIZE);
-            console.log('[loadPage]');
-            console.log(resp);
-
-            //cache
-            // globalStates.notes = resp.data.notes;
-            // globalStates.currentPage = page;
-            // globalStates.total = total;
-
-            //   this.store.dispatch(loadPage(resp.data.notes, page, totoal))
-            cbLoadPage(resp.data.notes, page, total)
-
-            //   me.noteList.current.changePage(page, total, resp.data.notes);
-
-            // ReactDOM.render(<App notes={resp.data.notes} currentPage={resp.data.currentPage}/>, document.getElementById('root'));
-
+            var total = Number(resp.data.total);
+            var currentPage = Number(resp.data.currentPage);
+            var totalPages = Math.ceil(Number(resp.data.total) / Constants.PAGE_SIZE);
+            // console.log('[loadPage]');
+            // console.log(resp);
+            cbLoadPage(resp.data.notes, total, currentPage, totalPages);
         }).catch(function (error) {
             console.log(error);
         }).then(function () {

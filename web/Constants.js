@@ -43,6 +43,10 @@ export default class Constants {
         return 10;
     }
 
+    static get PAGING_AFFIX(){
+        return 3;
+    }
+
     static get ERROR_AUTH_INVALID() {
         return 'invalid';
     }

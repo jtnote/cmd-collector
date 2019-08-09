@@ -30,6 +30,11 @@ web: page loading(when change page) wait animation?
 
 when session expire //e.g. get_notes api
 
+bug(web): after add, if page++, list page still previous page
+
+bug: need to login after refresh
+
+post request no token in List.js
 
 ==latency==
 after user click "edit"

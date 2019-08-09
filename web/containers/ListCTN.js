@@ -1,10 +1,11 @@
 import { connect } from 'react-redux'
 
 import List from '../components/List'
-// import { loginSuccess, changeView, loadPage } from '../actions/index'
+import { toEdit, changeView, loadPage } from '../actions/index'
 import Constants from '../Constants'
 
 const mapStateToProps = (state) => ({
+    token: state.token,
     notes: state.notes,
     currentPage: state.currentPage,
     totalPages: state.totalPages
@@ -12,9 +13,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    // loginSuccess: (token) => dispatch(loginSuccess(token)),
-    // changeView: (view) => dispatch(changeView(view)),
-    // loadPage: (notes, currentPage, totalPages) => dispatch(loadPage(notes, currentPage, totalPages))
+    toEdit: (noteEdit) => dispatch(toEdit(noteEdit)),
+    changeView: (view) => dispatch(changeView(view)),
+    loadPage: (notes, total, currentPage, totalPages) => dispatch(loadPage(notes, total, currentPage, totalPages))
 })
 
 export default connect(

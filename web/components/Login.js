@@ -43,14 +43,13 @@ class Login extends React.Component {
                 me.props.loginSuccess(resp.data.token);
                 // return;
 
-                Util.loadPage(1, resp.data.token, function (notes, page, total) {
-                    console.log('[Login]before loadpage, total='+total);
-                    me.props.loadPage(notes, page, total);
-
+                Util.loadPage(1, resp.data.token, function (notes, total, currentPage, totalPages) {
+                    console.log('[Login]before loadpage, total=' + total + ', totalPages=' + totalPages);
+                    me.props.loadPage(notes, total, currentPage, totalPages);
                     me.props.changeView(Constants.VIEW_LIST);
                 })
 
-                
+
 
                 // axios.post('/cmdnotes/api/notes_paging', {
                 //     token: me.props.token,

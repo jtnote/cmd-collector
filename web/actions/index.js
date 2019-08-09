@@ -1,16 +1,20 @@
+import Constants from '../Constants';
+
 export const changeView = (view) => ({
     type: 'CHANGE_VIEW',
     view
 });
 
-export const changeEditAction = (editAction) => ({
-    type: 'CHANGE_EDIT_ACTION',
-    editAction
+export const toEdit = (noteEdit) => ({
+    type: 'CHANGE_VIEW',
+    view: Constants.VIEW_EDIT,
+    noteEdit
 });
 
-export const loadPage = (notes, currentPage, totalPages) => ({
+export const loadPage = (notes, total, currentPage, totalPages) => ({
     type: 'LOAD_PAGE',
     notes,
+    total,
     currentPage,
     totalPages
 });

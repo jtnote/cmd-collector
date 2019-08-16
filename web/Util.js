@@ -36,6 +36,7 @@ function checkAuth(resp) {
 // }
 
 /*
+for component(except index.js) use
 cbLoadPage(notes, total, currentPage, totalPages)
 */
 function loadPage(p, token, cbLoadPage) {
@@ -50,6 +51,7 @@ function loadPage(p, token, cbLoadPage) {
             return;
         }
 
+        //TODO refactor api to avoid conversion
         var total = Number(resp.data.total);
         var currentPage = Number(resp.data.currentPage);
         var totalPages = Math.ceil(Number(resp.data.total) / Constants.PAGE_SIZE);

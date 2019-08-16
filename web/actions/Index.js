@@ -24,6 +24,12 @@ export const loginSuccess = (token) => ({
     token: token
 });
 
+//for auto login use
+export const refreshToken = (token) => ({
+    type: 'REFRESH_TOKEN',
+    token: token
+});
+
 // export const addTodo = text => ({
 //     type: 'ADD_TODO',
 //     id: nextTodoId++,

@@ -38,5 +38,8 @@ set FLASK_APP=cmd_notes
 set FLASK_ENV=development
 flask run
 
+==git==
+https://stackoverflow.com/questions/10523849/changing-capitalization-of-filenames-in-git
+
 ==todo==
 mysql connection pool

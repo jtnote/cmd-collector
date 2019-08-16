@@ -40,6 +40,7 @@ function rootReducer(state = initialState, action) {
         // case 'CHANGE_EDIT_ACTION':
         //     return Object.assign({}, state, { editAction: action.editAction });
         case 'LOAD_PAGE':
+            localStorage.setItem('currentPage', action.currentPage);
             return Object.assign({}, state, {
                 notes: action.notes,
                 total: action.total,
@@ -47,9 +48,16 @@ function rootReducer(state = initialState, action) {
                 totalPages: action.totalPages
             });
         case 'LOGIN_SUCCESS':
+            //also save token in local storage
+            localStorage.setItem('token', action.token);
+            localStorage.setItem('page', 1);
             return Object.assign({}, state, {
                 token: action.token
             });
+        case 'REFRESH_TOKEN':
+                return Object.assign({}, state, {
+                    token: action.token
+                });
         default:
             return state;
     }

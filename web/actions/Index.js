@@ -24,6 +24,10 @@ export const loginSuccess = (token) => ({
     token: token
 });
 
+export const logoutSuccess = () => ({
+    type: 'LOGOUT_SUCCESS'
+});
+
 //for auto login use
 export const refreshToken = (token) => ({
     type: 'REFRESH_TOKEN',

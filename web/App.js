@@ -11,6 +11,7 @@ import { changeView } from './actions/Index';
 import ListCTN from './containers/ListCTN';
 import LoginCTN from './containers/LoginCTN';
 import EditCTN from './containers/EditCTN';
+import NavBarCTN from './containers/NavBarCTN'
 
 class App extends React.Component {
   constructor(props) {
@@ -53,7 +54,7 @@ class App extends React.Component {
     } else if (this.props.view == Constants.VIEW_LIST) {
       viewElement = (
         <div className="container">
-          <a className="button is-primary" onClick={this.toAdd}>New</a>
+          <NavBarCTN />
           <ListCTN />
         </div>
       );

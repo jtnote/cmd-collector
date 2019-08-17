@@ -1,7 +1,7 @@
 import Constants from '../Constants';
 
 const initialState = {
-    token: '',
+    token: null,
 
     //for edit
     noteEdit: null,
@@ -54,10 +54,16 @@ function rootReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 token: action.token
             });
+        case 'LOGOUT_SUCCESS':
+            //also save token in local storage
+            localStorage.removeItem('token');
+            return Object.assign({}, state, {
+                token: null
+            });
         case 'REFRESH_TOKEN':
-                return Object.assign({}, state, {
-                    token: action.token
-                });
+            return Object.assign({}, state, {
+                token: action.token
+            });
         default:
             return state;
     }

@@ -19,18 +19,18 @@
     height: 600px;
 }
 
-.cc-mainlist-table {
+.cc-ml-tbl {
     width: 100%;
 }
 
-.cc-mainlist-table td div.cc-mainlist-table-title {
+.cc-ml-tbl td div.cc-ml-tbl-title {
     width: 250px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.cc-mainlist-table td div.cc-mainlist-table-cmd {
+.cc-ml-tbl td div.cc-ml-tbl-cmd {
     width: 300px;
     white-space: nowrap;
     overflow: hidden;

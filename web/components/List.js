@@ -95,6 +95,7 @@ class List extends React.Component {
 
         return (
             <div>
+                <div className="cc-ml-tblcon">
                 <table className="table cc-mainlist-table">
                     <thead>
                         <tr>
@@ -122,6 +123,7 @@ class List extends React.Component {
                         ))
                     }
                 </table>
+                </div>
                 <ListPagingBarCTN ref={this.pagingBar} total={this.props.totalPages} currentPage={this.props.currentPage} />
             </div>
         )

@@ -14,6 +14,11 @@
     margin: 0 auto;
 } */
 
+/* container of table */
+.cc-ml-tblcon {
+    height: 600px;
+}
+
 .cc-mainlist-table {
     width: 100%;
 }

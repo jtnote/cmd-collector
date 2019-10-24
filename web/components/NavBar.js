@@ -30,8 +30,7 @@ class NavBar extends React.Component {
 
     windowClick = (e) => {
         // e.preventDefault();
-
-        if (e.target.classList.contains('react-menu-button')) {
+        if (e.target.classList.contains('cc-ml-nav-right-comp')) {
             return;
         } else {
             this.setState({
@@ -55,17 +54,17 @@ class NavBar extends React.Component {
         });
 
         return (
-            <nav className="level react-menu-button">
-                <div className="level-left react-menu-button">
+            <nav className="level react-menu-button cc-ml-nav">
+                <div className="level-left react-menu-button cc-ml-nav-left">
                     <a className="button is-primary" onClick={this.toAdd}>New</a>
                 </div>
 
-                <div className="level-right react-menu-button">
+                <div className="level-right react-menu-button cc-ml-nav-right-comp">
                     <div className={ddClasses} onClick={this.toggleDD}>
                         <div class="dropdown-trigger">
-                            <button className="button react-menu-button" aria-haspopup="true" aria-controls="dropdown-menu">
-                                <span className="react-menu-button">---</span>
-                                <span className="icon is-small react-menu-button">
+                            <button className="button react-menu-button cc-ml-nav-right-comp" aria-haspopup="true" aria-controls="dropdown-menu">
+                                <span className="react-menu-button cc-ml-nav-right-comp">---</span>
+                                <span className="icon is-small react-menu-button cc-ml-nav-right-comp">
                                     <i className="fas fa-angle-down" aria-hidden="true"></i>
                                 </span>
                             </button>

@@ -6,6 +6,8 @@
     /* margin: 0 auto; */
 }
 
+/* ============ navbar ========================= */
+
 /* ============ list ========================= */
 
 /* .note-list {
@@ -47,6 +49,10 @@
     /* for flex */
     flex: 1;
     border: 1px dashed #00f;
+
+    /* display line break(\n) */
+    white-space: pre;
+    white-space: pre-line;
 }
 
 .cc-ml-tbl td div.cc-ml-tbl-title {

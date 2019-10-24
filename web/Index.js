@@ -15,6 +15,8 @@ import { refreshToken as _refreshToken, changeView as _changeView, loadPage as _
 
 import axios from 'axios';
 
+import './resources/css/bulmaCustomized.scss';
+
 // Check for token and update application state if required
 var token = localStorage.getItem('token');
 var currentPage = localStorage.getItem('currentPage');

@@ -41,5 +41,8 @@ flask run
 ==git==
 https://stackoverflow.com/questions/10523849/changing-capitalization-of-filenames-in-git
 
+==vs code==
+https://www.dinohensen.nl/tooling/vscode-enable-searching-node_modules/
+
 ==todo==
 mysql connection pool

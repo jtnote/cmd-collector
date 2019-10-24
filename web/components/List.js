@@ -134,7 +134,7 @@ class List extends React.Component {
                                 <tr onClick={me.handleRowClick} noteid={note.id} className={(me.props.idNoteSelected == note.id) ? "is-selected" : ""}>
                                     <td>{note.id}</td>
                                     <td><div className="cc-ml-tbl-title">{note.title}</div></td>
-                                    <td><a href={note.url} >Link</a></td>
+                                    <td><a href={note.url} target="_blank">Link</a></td>
                                     {/* <td><div className="cc-ml-tbl-cmd">{note.cmd}</div></td> */}
                                     <td>
                                         <div class="buttons">

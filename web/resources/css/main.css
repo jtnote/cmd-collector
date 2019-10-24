@@ -15,12 +15,38 @@
 } */
 
 /* container of table */
-.cc-ml-tblcon {
+.cc-ml-main {
     height: 600px;
+    display: flex;
 }
 
+/* .cc-ml-content {
+    width: 20%;
+} */
+
 .cc-ml-tbl {
-    width: 100%;
+    /* for flex */
+    flex: 0 0 700px;
+    border: 1px dashed #00f;
+
+    /* other */
+    table-layout: fixed;
+    border-spacing: 0px;
+}
+
+.cc-ml-tbl tr {
+    height: 1px;
+}
+
+.cc-ml-tbl tr td {
+    padding: 2px 0px 2px 0px;
+    margin: 0px;
+}
+
+.cc-ml-content {
+    /* for flex */
+    flex: 1;
+    border: 1px dashed #00f;
 }
 
 .cc-ml-tbl td div.cc-ml-tbl-title {
@@ -30,12 +56,12 @@
     text-overflow: ellipsis;
 }
 
-.cc-ml-tbl td div.cc-ml-tbl-cmd {
+/* .cc-ml-tbl td div.cc-ml-tbl-cmd {
     width: 300px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
+} */
 
 /* ============ edit ========================= */
 

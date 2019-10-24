@@ -13,5 +13,22 @@
       <div id="root" class="cc-viewport"></div>
 
       <script src="dist/build.js"></script>
+
+      
+      <table id="tableId">
+            <tr onclick="rowClick"><td>1 xxxxxx</td></tr>
+            <tr><td>2 xxxxxxxxxxx</td></tr>
+            <tr><td>3 xxxxxxxxxxxx</td></tr>
+      </table>
+                                    <script>
+                                          function rowClick(e){
+                                                alert('row clicked');
+                                                console.log(e.target);
+                                          }
+                                          var rows = document.getElementById("tableId").rows;
+                                          for(var i=0;i<rows.length;i++){
+                                                rows[i].onclick = rowClick;
+                                          }
+                                    </script>
 </body>
 </html>

@@ -6,14 +6,15 @@ class ListItemEdit extends React.Component {
         super(props);
     }
 
-    handleClick = () => {
+    handleClick = (e) => {
+        e.stopPropagation();
         this.props.onEditClick(this.props.idEdit);
     }
 
     render() {
         var text;
         return (
-            <button className="button is-link" onClick={this.handleClick}>Edit</button>
+            <button className="button is-link is-outlined is-small" onClick={this.handleClick}>Edit</button>
         )
     }
 }

@@ -3,6 +3,9 @@ https://medium.com/@siddharthac6/getting-started-with-react-js-using-webpack-and
 
 
 ==js==
+--target vs currentTarget--
+https://stackoverflow.com/questions/10086427/what-is-the-exact-difference-between-currenttarget-property-and-target-property/10086501#targetText=Basically%2C%20events%20bubble%20by%20default,event%20listener%20is%20attached%20to.
+
 --multiple imports--
 https://stackoverflow.com/questions/45995136/export-default-was-not-found
 
@@ -17,6 +20,10 @@ https://stackoverflow.com/questions/34521797/how-to-add-multiple-classes-to-a-re
 --trim long text in table--
 https://stackoverflow.com/questions/8818495/how-can-i-truncate-long-texts-in-a-table-using-css/8818546
 
+--decrease tr height--
+https://stackoverflow.com/questions/20251656/reducing-html-table-row-height
+https://stackoverflow.com/questions/31079115/how-do-i-set-the-table-row-heights-to-minimum-except-last-row
+https://stackoverflow.com/questions/6398172/setting-table-row-height/6398216
 
 ==bulma==
 --pagination--

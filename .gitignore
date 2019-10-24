@@ -1,5 +1,6 @@
 /web/dist
 /web/temp
+/web/test*
 node_modules/
 venv
 .cache

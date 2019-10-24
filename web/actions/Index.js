@@ -11,6 +11,16 @@ export const toEdit = (noteEdit) => ({
     noteEdit
 });
 
+export const selectNote = (idNoteSelected) => ({
+    type: 'SELECT_NOTE',
+    idNoteSelected
+});
+
+export const previewSelectedNote = (noteSelected) => ({
+    type: 'PREVIEW_SELECTED_NOTE',
+    noteSelected
+});
+
 export const loadPage = (notes, total, currentPage, totalPages) => ({
     type: 'LOAD_PAGE',
     notes,

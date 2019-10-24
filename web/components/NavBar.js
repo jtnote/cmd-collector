@@ -29,9 +29,7 @@ class NavBar extends React.Component {
     }
 
     windowClick = (e) => {
-        e.preventDefault();
-
-        console.log(e.target.classList);
+        // e.preventDefault();
 
         if (e.target.classList.contains('react-menu-button')) {
             return;

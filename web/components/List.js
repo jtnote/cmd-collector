@@ -18,6 +18,26 @@ class List extends React.Component {
         this.pagingBar = React.createRef();
     }
 
+    handleRowClick = (e) => {
+        var noteId = e.currentTarget.getAttribute('noteid');
+        var me = this;
+        me.props.selectNote(noteId);
+
+        axios.get('/cmdnotes/api/note', {
+            params: {
+                id: noteId
+            }
+        }).then(function (response) {
+            // console.log(response);
+            var noteSelected = response.data.note;
+            me.props.previewSelectedNote(noteSelected);
+        }).catch(function (error) {
+            console.log(error);
+        }).then(function () {
+            // always executed
+        });
+    }
+
     handleEdit = (id) => {
         console.log('id=' + id + ", updateComplete=");
         console.log(this.props.updateComplete);
@@ -88,41 +108,45 @@ class List extends React.Component {
 
     render() {
         const lStyle = {
-            textDecoration: 'underline'
+            // textDecoration: 'underline'
         };
+        // style={lStyle}
 
         console.log('[List]props.totalPages=' + this.props.totalPages + ', currP=' + this.props.currentPage);
 
+        var me = this;
+
         return (
             <div>
-                <div className="cc-ml-tblcon">
-                <table className="table cc-ml-tbl">
-                    <thead>
-                        <tr>
-                            <th><abbr title="id">#</abbr></th>
-                            <th>Title</th>
-                            <th><abbr title="url">Url</abbr></th>
-                            <th><abbr title="cmd">Command</abbr></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    {
-                        this.props.notes.map((note, i) => (
+                <div className="cc-ml-main">
+                    <table className="table cc-ml-tbl">
+                        <thead>
                             <tr>
-                                <td>{note.id}</td>
-                                <td><div className="cc-ml-tbl-title">{note.title}</div></td>
-                                <td><a href={note.url} style={lStyle} target="_blank">Link</a></td>
-                                <td><div className="cc-ml-tbl-cmd">{note.cmd}</div></td>
-                                <td>
-                                    <div class="buttons">
-                                        <ListItemEdit onEditClick={this.handleEdit} idEdit={note.id} />
-                                        <ListItemDelete onDeleteClick={this.handleDelete} idDelete={note.id} />
-                                    </div>
-                                </td>
+                                <th><abbr title="id">#</abbr></th>
+                                <th>Title</th>
+                                <th><abbr title="url">Url</abbr></th>
+                                {/* <th><abbr title="cmd">Command</abbr></th> */}
+                                <th></th>
                             </tr>
-                        ))
-                    }
-                </table>
+                        </thead>
+                        {
+                            this.props.notes.map((note, i) => (
+                                <tr onClick={me.handleRowClick} noteid={note.id} className={(me.props.idNoteSelected == note.id) ? "is-selected" : ""}>
+                                    <td>{note.id}</td>
+                                    <td><div className="cc-ml-tbl-title">{note.title}</div></td>
+                                    <td><a href={note.url} >Link</a></td>
+                                    {/* <td><div className="cc-ml-tbl-cmd">{note.cmd}</div></td> */}
+                                    <td>
+                                        <div class="buttons">
+                                            <ListItemEdit onEditClick={this.handleEdit} idEdit={note.id} />
+                                            <ListItemDelete onDeleteClick={this.handleDelete} idDelete={note.id} />
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))
+                        }
+                    </table>
+                    <div className="cc-ml-content">{me.props.noteSelected == null ? "" : me.props.noteSelected.cmd}</div>
                 </div>
                 <ListPagingBarCTN ref={this.pagingBar} total={this.props.totalPages} currentPage={this.props.currentPage} />
             </div>

@@ -6,14 +6,15 @@ class ListItemDelete extends React.Component {
         super(props);
     }
 
-    handleClick = () => {
+    handleClick = (e) => {
+        e.stopPropagation();
         this.props.onDeleteClick(this.props.idDelete);
     }
 
     render() {
         var text;
         return (
-            <button className="button is-danger" onClick={this.handleClick}>Delete</button>
+            <button className="button is-danger is-outlined is-small" onClick={this.handleClick}>Delete</button>
         )
     }
 }
